@@ -20,6 +20,7 @@ export class ListDetailPage {
   public todo ={};
   constructor(public navCtrl: NavController, public navParams: NavParams, public service:HttpServiceProvider) {
     this.listDetial = this.navParams.data.item ;
+    console.log(JSON.stringify(this.listDetial))
   }
 
   ionViewDidLoad() {
@@ -27,11 +28,10 @@ export class ListDetailPage {
     this.loadDetail();
   }
   loadDetail(){
-    this.service.list('outbounds','').then(data=>{
+    this.service.list('/system/funcdef/detail/T_SAL_OUTSTOCK/' + this.listDetial["OUTSTOCK_FOREIGNKEY"],'').then(data=>{
       if(data.length>0){
         this.data = data;
       }
-
     });
   }
   logForm(){
