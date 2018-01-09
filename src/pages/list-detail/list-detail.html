@@ -7,9 +7,11 @@
 </ion-header>
 
 <ion-content >
-  <ion-list no-lines *ngFor="let field of masters">
-    <ion-item>{{field?.caption}}</ion-item>
-  </ion-list>
+
+  <ion-item >{{master["OUTSTOCK_CODE"]?.caption}}: {{master["OUTSTOCK_CODE"]?.value}}</ion-item>
+  <ion-item >{{master["OUTSTOCK_OUTAT"]?.caption}}: {{master["OUTSTOCK_OUTAT"]?.value | date:"yyyy-MM-dd" }}</ion-item>
+  <ion-item >{{master["ASSISTANT_NAME"]?.caption}}: {{master["ASSISTANT_NAME"]?.value}}</ion-item>
+
   <form action="" (ngSubmit)="logForm()">
     <div class="row header">
       <div class="col">名称</div>

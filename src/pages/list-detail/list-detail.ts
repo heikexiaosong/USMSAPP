@@ -16,7 +16,7 @@ import {HttpServiceProvider} from '../../providers/http-service/http-service';
 })
 export class ListDetailPage {
   public  listDetial= [];
-  public masters = [];
+  public master = {};
   public  data=[];
   public todo ={};
   constructor(public navCtrl: NavController, public navParams: NavParams, public service:HttpServiceProvider) {
@@ -30,8 +30,13 @@ export class ListDetailPage {
   }
   loadDetail(){
     this.service.list('/system/funcdef/detail/T_SAL_OUTSTOCK/' + this.listDetial["OUTSTOCK_FOREIGNKEY"],'').then(data=>{
-      console.log(JSON.stringify(data));
-      this.masters = data.data.master;
+      const record = this.master;
+      data.data.master.forEach(
+        function (eachObj) {
+          record[eachObj["name"]] = eachObj;
+        }
+      );
+
       this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
     });
   }
