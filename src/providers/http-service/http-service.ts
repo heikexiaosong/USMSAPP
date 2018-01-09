@@ -12,7 +12,9 @@ import {AppConfig} from "../../app/app.config";
 */
 @Injectable()
 export class HttpServiceProvider {
+
   private  rootUrl:string;
+
   constructor(private http: Http) {
     this.rootUrl = AppConfig.appUrl();
   }

@@ -10,11 +10,20 @@ import { HomePage } from '../pages/home/home';
 import {ListPageModule} from "../pages/list/list.module";
 import {ListDetailPageModule} from "../pages/list-detail/list-detail.module";
 import { HttpServiceProvider } from '../providers/http-service/http-service';
+import {AuthenticationProvider} from "../providers/authentication";
+
+
+import { AutologinPage } from '../pages/autologin/autologin';
+import { LoginPage } from '../pages/login/login';
+import { provideInterceptorService  } from 'ng2-interceptors';
+import { HttpInterceptor } from '../interceptor/HttpInterceptor';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    AutologinPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -26,13 +35,19 @@ import { HttpServiceProvider } from '../providers/http-service/http-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    AutologinPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpServiceProvider
+    SplashScreen,HttpInterceptor,
+    provideInterceptorService([
+      HttpInterceptor
+    ]),
+    {provide: ErrorHandler, useClass: IonicErrorHandler},    
+    HttpServiceProvider,
+    AuthenticationProvider
   ]
 })
 export class AppModule {}
