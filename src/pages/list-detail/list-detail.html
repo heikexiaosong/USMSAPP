@@ -12,47 +12,21 @@
     <ion-item>{{listDetial?.category}}</ion-item>
     <ion-item>{{listDetial?.link}}</ion-item>
   </ion-list>
-  <div overflow-scroll="false">
-  <!--  <div style="display:flex;width:625px;">
-      <div class="head">地区</div>
-      <div style="overflow: hidden;white-space: nowrap;width:250px;">
-        <ion-scroll direction="x" scrollbar-x="false" overflow-scroll="false" has-bouncing="false" delegate-handle="headContainerHandle" on-scroll="noScroll()" style="margin-top:0;">
-          <div style="display:flex;width:500px;">
-            <div class="head">到件量</div>
-            <div class="head">出仓量</div>
-            <div class="head">滞留量</div>
-            <div class="head" style="border-right:0;">未派送量</div>
-          </div>
-        </ion-scroll>
-      </div>
+  <form action="" (ngSubmit)="logForm()">
+    <div class="row header">
+      <div class="col">ID</div>
+      <div class="col">CATEGROY</div>
+      <div class="col">LINK</div>
+      <div class="col">NUM</div>
     </div>
-    <div style="display:flex;width:625px;">
-      <ion-scroll direction="y" scrollbar-y="false" overflow-scroll="false" has-bouncing="false" delegate-handle="leftContainerHandle" on-scroll="noScroll()" style="height:{{h}}px;">
-        <div class="head">
-          title
-        </div>
-      </ion-scroll>
-      <div style="overflow: hidden;white-space: nowrap;width:250px;">
-        <ion-scroll direction="xy" scrollbar-x="false" scrollbar-y="false" overflow-scroll="false" has-bouncing="false" on-scroll="scrollRightHorizon()" delegate-handle="rightContainerHandle" style="height:{{h}}px;">
-          <div style="width:500px;">
-            <div  style="display:flex;">
-              <div class="head">
-                1
-              </div>
-              <div class="head">
-                2
-              </div>
-              <div class="head">
-                3
-              </div>
-              <div class="head" style="border-right:0;">
-                4
-              </div>
-            </div>
-          </div>
-        </ion-scroll>
-      </div>
-    </div>-->
-  </div>
+    <div  *ngFor="let item of data" class="row">
+      <div class="col">{{item.id}}</div>
+      <div class="col">{{item?.category}}</div>
+      <div class="col">{{item?.link}}</div>
+      <div class="col"><ion-input type="text" name="num"></ion-input></div>
+    </div>
+    <button ion-button type="submit" block>提交</button>
+  </form>
+
 
 </ion-content>

@@ -1,13 +1,21 @@
 page-list-detail {
-.head{
-  border-bottom:solid 1px #D1D3D6;
-  border-right:solid 1px #D1D3D6;
-  height:50px;
-  display:flex;
-  align-items:center;
-  width:125px;
-  font-size:14px;
-  color:#262626;
-  justify-content:center;
-}
+  .header .col {
+    background-color:lightgrey;
+    width: 2rem;
+  }
+
+  .col {
+    border: solid 1px grey;
+    border-bottom-style: none;
+    border-right-style: none;
+    width: 2rem;
+  }
+
+  .col:last-child {
+    border-right: solid 1px grey;
+  }
+
+  .row:last-child .col {
+    border-bottom: solid 1px grey;
+  }
 }
