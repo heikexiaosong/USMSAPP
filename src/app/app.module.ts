@@ -3,11 +3,13 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {ListPageModule} from "../pages/list/list.module";
 import {ListDetailPageModule} from "../pages/list-detail/list-detail.module";
+import { HttpServiceProvider } from '../providers/http-service/http-service';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import {ListDetailPageModule} from "../pages/list-detail/list-detail.module";
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     ListDetailPageModule,
     ListPageModule,
     IonicModule.forRoot(MyApp)
@@ -28,7 +31,8 @@ import {ListDetailPageModule} from "../pages/list-detail/list-detail.module";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HttpServiceProvider
   ]
 })
 export class AppModule {}

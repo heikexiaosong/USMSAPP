@@ -1,12 +1,58 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      12123
+      {{listDetial?.title}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <!--<ion-icon [name]="'logo-' + item.icon" [ngStyle]="{'color': item.color}"></ion-icon>
-  {{ item.description }}-->
+<ion-content >
+  <ion-list no-lines>
+    <ion-item>{{listDetial?.title}}</ion-item>
+    <ion-item>{{listDetial?.category}}</ion-item>
+    <ion-item>{{listDetial?.link}}</ion-item>
+  </ion-list>
+  <div overflow-scroll="false">
+  <!--  <div style="display:flex;width:625px;">
+      <div class="head">地区</div>
+      <div style="overflow: hidden;white-space: nowrap;width:250px;">
+        <ion-scroll direction="x" scrollbar-x="false" overflow-scroll="false" has-bouncing="false" delegate-handle="headContainerHandle" on-scroll="noScroll()" style="margin-top:0;">
+          <div style="display:flex;width:500px;">
+            <div class="head">到件量</div>
+            <div class="head">出仓量</div>
+            <div class="head">滞留量</div>
+            <div class="head" style="border-right:0;">未派送量</div>
+          </div>
+        </ion-scroll>
+      </div>
+    </div>
+    <div style="display:flex;width:625px;">
+      <ion-scroll direction="y" scrollbar-y="false" overflow-scroll="false" has-bouncing="false" delegate-handle="leftContainerHandle" on-scroll="noScroll()" style="height:{{h}}px;">
+        <div class="head">
+          title
+        </div>
+      </ion-scroll>
+      <div style="overflow: hidden;white-space: nowrap;width:250px;">
+        <ion-scroll direction="xy" scrollbar-x="false" scrollbar-y="false" overflow-scroll="false" has-bouncing="false" on-scroll="scrollRightHorizon()" delegate-handle="rightContainerHandle" style="height:{{h}}px;">
+          <div style="width:500px;">
+            <div  style="display:flex;">
+              <div class="head">
+                1
+              </div>
+              <div class="head">
+                2
+              </div>
+              <div class="head">
+                3
+              </div>
+              <div class="head" style="border-right:0;">
+                4
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+      </div>
+    </div>-->
+  </div>
+
 </ion-content>
