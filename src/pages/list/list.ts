@@ -25,11 +25,12 @@ export class ListPage {
   }
 
   ionViewDidLoad() {
-   this.loadDate();
+    this.loadDate();
     console.log('ionViewDidLoad ListPage');
   }
   itemSelected(item) {
-   this.navCtrl.push(ListDetailPage, { item: item });
+    item["title"] = "出库单详情";
+    this.navCtrl.push(ListDetailPage, { item: item });
   }
   loadDate(){
     let loader = this.loadingCtrl.create({
