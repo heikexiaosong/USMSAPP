@@ -17,7 +17,7 @@
       <div class="col">应出数量</div>
       <div class="col">实出数量</div>
     </div>
-    <div  *ngFor="let item of data" class="row">
+    <div  *ngFor="let item of data" class="row" (click)="dblList(item)">
       <div class="col">{{item?.MATERIAL_NAME}}</div>
       <div class="col">{{item?.OUTSTOCKENTRY_UNIT}}</div>
       <div class="col">{{item?.OUTSTOCKENTRY_QUANTITY}}</div>

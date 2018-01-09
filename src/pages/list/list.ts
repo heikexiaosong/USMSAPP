@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import{ ListDetailPage} from '../list-detail/list-detail';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { LoadingController } from 'ionic-angular';
-
+import { ModalController } from 'ionic-angular';
 /**
  * Generated class for the ListPage page.
  *
