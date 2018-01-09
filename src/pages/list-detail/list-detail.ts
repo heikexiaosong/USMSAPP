@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
+import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
+import { ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the ListDetailPage page.
@@ -18,10 +20,12 @@ export class ListDetailPage {
   public  listDetial= [];
   public master = {};
   public  data=[];
-  public todo ={};
-  constructor(public navCtrl: NavController, public navParams: NavParams, public service:HttpServiceProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public service:HttpServiceProvider,
+              public modalCtrl: ModalController) {
     this.listDetial = this.navParams.data.item ;
-    console.log(JSON.stringify(this.listDetial))
+    console.log(JSON.stringify(this.listDetial));
   }
 
   ionViewDidLoad() {
@@ -41,7 +45,10 @@ export class ListDetailPage {
     });
   }
   logForm(){
-    debugger;
     alert('1');
+  }
+  dblList(item){
+    let modal = this.modalCtrl.create(ListDetailInputPage);
+    modal.present();
   }
 }
