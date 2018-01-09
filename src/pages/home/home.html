@@ -1,14 +1,30 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-row>
+  <button ion-button icon-left outline large class="btn-style" (click)="listDrop(1)">
+    <ion-icon name="home"></ion-icon>
+      出户单
+  </button>
+  <button ion-button icon-right outline large class="btn-style btn-style-position" (click)="listDrop(2)">
+    <ion-icon name="star"></ion-icon>
+    List2
+  </button>
+  </ion-row>
+  <ion-row>
+    <button ion-button icon-left outline large class="btn-style " (click)="listDrop(2)">
+      <ion-icon name="home"></ion-icon>
+      list3
+    </button>
+    <button ion-button icon-right outline large class="btn-style btn-style-position" (click)="listDrop(2)">
+      <ion-icon name="star"></ion-icon>
+      List4
+    </button>
+  </ion-row>
 </ion-content>
