@@ -16,8 +16,8 @@
 <ion-content >
     <ion-list>
       <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-        <h4 class="list-main-title"> {{ item?.OUTSTOCK_FOREIGNKEY }} {{ item?.OUTSTOCK_CODE }} </h4>
-        <span class="list-main-content"><label>{{item?.OUTSTOCK_OUTAT}}</label>{{item?.ZT}}</span>
+        <h4 class="list-main-title">{{ item?.OUTSTOCK_CODE }} </h4>
+        <span class="list-main-content"><label>{{item?.OUTSTOCK_OUTAT  | date:"yyyy-MM-dd" }}</label> | {{item?.ZT}}</span>
       </button>
     </ion-list>
 </ion-content>
