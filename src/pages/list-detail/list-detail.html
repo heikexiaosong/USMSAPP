@@ -7,22 +7,20 @@
 </ion-header>
 
 <ion-content >
-  <ion-list no-lines>
-    <ion-item>{{listDetial?.title}}</ion-item>
-    <ion-item>{{listDetial?.category}}</ion-item>
-    <ion-item>{{listDetial?.link}}</ion-item>
+  <ion-list no-lines *ngFor="let field of masters">
+    <ion-item>{{field?.caption}}</ion-item>
   </ion-list>
   <form action="" (ngSubmit)="logForm()">
     <div class="row header">
-      <div class="col">ID</div>
-      <div class="col">CATEGROY</div>
-      <div class="col">LINK</div>
-      <div class="col">NUM</div>
+      <div class="col">名称</div>
+      <div class="col">单位</div>
+      <div class="col">应出数量</div>
+      <div class="col">实出数量</div>
     </div>
     <div  *ngFor="let item of data" class="row">
-      <div class="col">{{item.id}}</div>
-      <div class="col">{{item?.category}}</div>
-      <div class="col">{{item?.link}}</div>
+      <div class="col">{{item?.MATERIAL_NAME}}</div>
+      <div class="col">{{item?.OUTSTOCKENTRY_UNIT}}</div>
+      <div class="col">{{item?.OUTSTOCKENTRY_QUANTITY}}</div>
       <div class="col"><ion-input type="text" name="num"></ion-input></div>
     </div>
     <button ion-button type="submit" block>提交</button>

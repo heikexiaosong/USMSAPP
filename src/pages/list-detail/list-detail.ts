@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
-import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the ListDetailPage page.
@@ -17,12 +16,10 @@ import { LoadingController } from 'ionic-angular';
 })
 export class ListDetailPage {
   public  listDetial= [];
+  public masters = [];
   public  data=[];
   public todo ={};
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public service:HttpServiceProvider,
-              public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public service:HttpServiceProvider) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial))
   }
@@ -32,20 +29,14 @@ export class ListDetailPage {
     this.loadDetail();
   }
   loadDetail(){
-    let loader = this.loadingCtrl.create({
-      content: "Please wait..."
-    });
-    loader.present();
     this.service.list('/system/funcdef/detail/T_SAL_OUTSTOCK/' + this.listDetial["OUTSTOCK_FOREIGNKEY"],'').then(data=>{
-      loader.dismiss();
-      if(data.length>0){
-        this.data = data;
-      }
+      console.log(JSON.stringify(data));
+      this.masters = data.data.master;
+      this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
     });
-
   }
   logForm(){
-
+    debugger;
     alert('1');
   }
 }
