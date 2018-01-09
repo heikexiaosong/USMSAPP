@@ -40,7 +40,6 @@ export class ListDetailPage {
           record[eachObj["name"]] = eachObj;
         }
       );
-
       this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
     });
   }
@@ -48,7 +47,11 @@ export class ListDetailPage {
     alert('1');
   }
   dblList(item){
-    let modal = this.modalCtrl.create(ListDetailInputPage);
+    let modal = this.modalCtrl.create(ListDetailInputPage, item);
+    modal.onDidDismiss(data => {
+      console.log("Result: " + JSON.stringify(data));
+      item["QUANTITY"] = data["num"]
+    });
     modal.present();
   }
 }

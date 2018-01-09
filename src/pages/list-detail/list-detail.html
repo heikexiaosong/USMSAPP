@@ -23,7 +23,7 @@
       <div class="col">{{item?.MATERIAL_NAME}}</div>
       <div class="col">{{item?.OUTSTOCKENTRY_UNIT}}</div>
       <div class="col">{{item?.OUTSTOCKENTRY_QUANTITY}}</div>
-      <div class="col"><ion-input type="text" name="num"></ion-input></div>
+      <div class="col"><ion-input type="text" name="num"  [(ngModel)] = "item.QUANTITY" ></ion-input></div>
     </div>
     <button ion-button type="submit" block>提交</button>
   </form>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 
 /**
  * Generated class for the ListDetailInputPage page.
@@ -15,11 +15,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ListDetailInputPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private num = 0;
+
+  constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController,
+              public navParams: NavParams) {
+    console.log(JSON.stringify(navParams));
+    console.log(navParams.get("QUANTITY"));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListDetailInputPage');
+  }
+
+  r_ok() {
+    this.viewCtrl.dismiss({num: this.num});
   }
 
 }
