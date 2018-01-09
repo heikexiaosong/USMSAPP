@@ -28,11 +28,10 @@ export class ListPage {
    this.navCtrl.push(ListDetailPage, { item: item });
   }
   loadDate(){
-    this.service.list('outbounds','').then(data=>{
-      if(data.length>0){
-        this.items = data;
+    this.service.list('/system/funcdef/T_SAL_OUTSTOCK/query',{}).then(data=>{
+      if( data.data.records.length > 0 ){
+        this.items = data.data.records;
       }
-
     });
   }
 }

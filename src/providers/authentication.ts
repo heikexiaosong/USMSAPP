@@ -9,7 +9,7 @@ export class AuthenticationProvider {
   private auth_token:string = '';
 
   constructor(private http: Http) {
-    this.rootUrl = "http://118.31.239.85:8080/usms";
+    this.rootUrl = "http://localhost:9080/cloud";
   }
 
   public login(username, password) {

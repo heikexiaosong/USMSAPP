@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NavController} from 'ionic-angular';
 import {AuthenticationProvider} from "../../providers/authentication";
 import { Md5 } from 'ts-md5/dist/md5';
 import {HomePage} from "../home/home";
@@ -40,6 +39,8 @@ export class LoginPage {
         if ( result.success ){
           localStorage.setItem("auth_token", data.json().data.auth_token);
           this._nav.setRoot(HomePage);
+        } else {
+          alert(result.message);
         }
       },
       err => console.error(err),

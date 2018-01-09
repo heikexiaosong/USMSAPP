@@ -27,8 +27,8 @@ export class HttpServiceProvider {
   }
 
   public post(url: string, paramObj: any) {
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    return this.http.post(url, this.toBodyString(paramObj), new RequestOptions({headers: headers}))
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}))
       .toPromise()
       .then(res => this.handleSuccess(res.json()))
       .catch(error => this.handleError(error));
@@ -130,6 +130,6 @@ export class HttpServiceProvider {
 
   //请求list数据
   list(url,params){
-    return this.get(this.rootUrl+url ,params);
+    return this.post(this.rootUrl+url ,params);
   }
 }

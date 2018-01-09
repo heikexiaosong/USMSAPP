@@ -16,9 +16,9 @@
 <ion-content >
     <ion-list>
       <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" icon-start>
-        <ion-icon [name]="'logo-' + item.id" item-start></ion-icon>
-        <h4 class="list-main-title"> {{ item?.title }}</h4>
-        <span class="list-main-content"><label>{{item?.category}}</label>{{item?.link}}</span>
+        <ion-icon [name]="'logo-' + item.OUTSTOCK_CODE" item-start></ion-icon>
+        <h4 class="list-main-title"> {{ item?.OUTSTOCK_FOREIGNKEY }}</h4>
+        <span class="list-main-content"><label>{{item?.OUTSTOCK_OUTAT}}</label>{{item?.ZT}}</span>
       </button>
     </ion-list>
 </ion-content>
