@@ -7,8 +7,9 @@ export class AppConfig{
   public  static  getProUrl(){
     return "";
   }
+
   //接口数据
   public  static  appUrl(){
-    return "http://localhost:9080/cloud";
+    return "http://192.168.30.224:9080/cloud";
   }
 }

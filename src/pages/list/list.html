@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>list</ion-title>
+    <ion-title>出库单</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,9 +15,8 @@
 
 <ion-content >
     <ion-list>
-      <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" icon-start>
-        <ion-icon [name]="'logo-' + item.OUTSTOCK_CODE" item-start></ion-icon>
-        <h4 class="list-main-title"> {{ item?.OUTSTOCK_FOREIGNKEY }}</h4>
+      <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+        <h4 class="list-main-title"> {{ item?.OUTSTOCK_FOREIGNKEY }} {{ item?.OUTSTOCK_CODE }} </h4>
         <span class="list-main-content"><label>{{item?.OUTSTOCK_OUTAT}}</label>{{item?.ZT}}</span>
       </button>
     </ion-list>

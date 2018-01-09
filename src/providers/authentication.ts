@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http} from '@angular/http';
+import {AppConfig} from "../app/app.config";
 
 @Injectable()
 export class AuthenticationProvider {
 
   private  rootUrl:string;
 
-  private auth_token:string = '';
-
   constructor(private http: Http) {
-    this.rootUrl = "http://localhost:9080/cloud";
+    this.rootUrl = AppConfig.appUrl();
   }
 
   public login(username, password) {
