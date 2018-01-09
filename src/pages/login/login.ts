@@ -33,7 +33,7 @@ export class LoginPage {
     }
 
       //Take the values from  the form control
-      var encodePWD = Md5.hashStr(  this.userName + "USER" +  this.userPwd + "PASSWORD");
+      var encodePWD = Md5.hashStr(  this.userName.trim().toLocaleLowerCase() + "USER" +  this.userPwd + "PASSWORD");
       this.authProvider.login(this.userName, encodePWD).subscribe( data => {
         console.log("Login: " +  JSON.stringify(data.json()));
         var result = data.json();
