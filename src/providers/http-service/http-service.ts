@@ -44,7 +44,7 @@ export class HttpServiceProvider {
 
   private handleSuccess(result) {
     if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
-      alert(result.msg);//这里使用ToastController
+      //alert(result.msg);//这里使用ToastController
     }
     return result;
   }
