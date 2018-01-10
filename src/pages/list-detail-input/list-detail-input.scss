@@ -1,3 +1,11 @@
 page-list-detail-input {
-
+  .toolbar-background-md,.toolbar-background-ios{
+    background: linear-gradient(to right, #347eff, #1ea3ff);
+  }
+  .toolbar-title-ios,.toolbar-title-md{
+    color: white;
+  }
+  .button-inner{
+    color: white;
+  }
 }

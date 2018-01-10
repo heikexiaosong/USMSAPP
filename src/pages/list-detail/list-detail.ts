@@ -62,7 +62,10 @@ export class ListDetailPage {
     let modal = this.modalCtrl.create(ListDetailInputPage, item);
     modal.onDidDismiss(data => {
       console.log("Result: " + JSON.stringify(data));
-      item["QUANTITY"] = data["num"]
+      if(data){
+        item["QUANTITY"] = data["num"];
+      }
+
     });
     modal.present();
   }
