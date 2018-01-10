@@ -1,14 +1,16 @@
 page-list-detail {
   .header .col {
-    background-color:lightgrey;
+    background-color: #32afc5;
     width: 2rem;
+    color: white;
   }
-
   .col {
-    border: solid 1px grey;
+    border: solid 1px #e8e8e8;
     border-bottom-style: none;
     border-right-style: none;
     width: 2rem;
+    text-align: center;
+    line-height: 2rem;
   }
 
   .col:last-child {
@@ -22,5 +24,23 @@ page-list-detail {
   .list-md {
     margin: 0px !important;
     /* margin: -1px 0 16px; */
+  }
+  .toolbar-background-md,.toolbar-background-ios{
+    background: linear-gradient(to right, #347eff, #1ea3ff);
+  }
+  .toolbar-title-ios,.toolbar-title-md{
+    color: white;
+  }
+  .button-inner{
+    color: white;
+  }
+  .list-detail-info{
+    span{
+      color: rgb(105, 103, 103);
+    }
+  }
+  .dell{
+    padding-top: 1.5rem;
+    height: 4rem;
   }
 }

@@ -24,27 +24,28 @@ export class LoginPage {
   }
 
   public login() {
-
+    this._nav.setRoot(HomePage);
     // Validation
-    if ( this.userName.trim()=='' || this.userPwd.trim()=='') {
-      alert("用户名/密码不能为空");
-      return;
-    }
-
+    if(this.userName){
+      if ( this.userName.trim()=='' || this.userPwd.trim()=='') {
+        alert("用户名/密码不能为空");
+        return;
+      }
       //Take the values from  the form control
       var encodePWD = Md5.hashStr(  this.userName.trim().toLocaleLowerCase() + "USER" +  this.userPwd + "PASSWORD");
       this.authProvider.login(this.userName, encodePWD).subscribe( data => {
-        console.log("Login: " +  JSON.stringify(data.json()));
-        var result = data.json();
-        if ( result.success ){
-          localStorage.setItem("auth_token", data.json().data.auth_token);
-          this._nav.setRoot(HomePage);
-        } else {
-          alert(result.message);
-        }
-      },
-      err => console.error(err),
-      () => { console.log('getRepos completed') }
-    );
+          console.log("Login: " +  JSON.stringify(data.json()));
+          var result = data.json();
+          if ( result.success ){
+            localStorage.setItem("auth_token", data.json().data.auth_token);
+            this._nav.setRoot(HomePage);
+          } else {
+            alert(result.message);
+          }
+        },
+        err => console.error(err),
+        () => { console.log('getRepos completed') }
+      );
+    }
   }
 }

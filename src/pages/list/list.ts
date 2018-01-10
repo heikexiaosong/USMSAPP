@@ -34,22 +34,20 @@ export class ListPage {
   }
   loadDate(){
     let loader = this.loadingCtrl.create({
-      content: "Please wait..."
+      content: "加载中..."
     });
     loader.present();
     this.service.list('/system/funcdef/T_SAL_OUTSTOCK/query',{}).then(data=>{
-      loader.dismiss();
-      if( data.data.records.length > 0 ){
-        this.items = data.data.records;
-      }
-    });
-  }
+     if(data['data']){
+       loader.dismiss();
+       if( data.data.records.length > 0 ){
+         this.items = data.data.records;
+       }
+     }else{
+       loader.dismiss();
+       alert('请求数据失败');
+     }
 
-  presentLoading() {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
     });
-    loader.present();
   }
 }

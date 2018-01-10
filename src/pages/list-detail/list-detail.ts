@@ -36,18 +36,23 @@ export class ListDetailPage {
   }
   loadDetail(){
     let loader = this.loadingCtrl.create({
-      content: "Please wait..."
+      content: "加载中..."
     });
     loader.present();
     this.service.list('/system/funcdef/detail/T_SAL_OUTSTOCK/' + this.listDetial["OUTSTOCK_FOREIGNKEY"],'').then(data=>{
       loader.dismiss();
       const record = this.master;
-      data.data.master.forEach(
-        function (eachObj) {
-          record[eachObj["name"]] = eachObj;
+      if(data['data']){
+        if(data['data']['master']){
+          data.data.master.forEach(
+            function (eachObj) {
+              record[eachObj["name"]] = eachObj;
+            }
+          );
+          this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
         }
-      );
-      this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
+
+      }
     });
   }
   logForm(){
