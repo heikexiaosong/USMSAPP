@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -18,18 +18,19 @@ import { LoadingController } from 'ionic-angular';
   templateUrl: 'receipt-detail-input.html',
 })
 export class ReceiptDetailInputPage {
-
-  public  data = {};
+  private num = 0;
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public service:HttpServiceProvider,
-              public modalCtrl: ModalController,
-              public loadingCtrl: LoadingController) {
-    this.data = this.navParams.data.item ;
-    console.log(JSON.stringify(this.data));
+              public viewCtrl: ViewController,
+              public navParams: NavParams) {
+    console.log(JSON.stringify(navParams));
+    console.log(navParams.get("QUANTITY"));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');
+  }
+
+  r_ok() {
+    this.viewCtrl.dismiss({num: this.num});
   }
 }
