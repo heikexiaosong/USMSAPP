@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
-import {ReceiptDetailInputPage} from "../receipt-detail-input/receipt-detail-input";
+import {ReceiptDetailInputPage} from '../receipt-detail-input/receipt-detail-input';
 
 
 /**

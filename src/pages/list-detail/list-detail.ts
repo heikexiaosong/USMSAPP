@@ -39,9 +39,9 @@ export class ListDetailPage {
       content: "加载中..."
     });
     loader.present();
-    // const url='/system/funcdef/detail/T_SAL_DELIVERYNOTICE/' + this.listDetial["FBILLNO"];
-    const url ='CGSL10101000032.json';
-    this.service.list(url,'').then(data=>{
+    const url='system/funcdef/details/T_PUR_Receive/' + this.listDetial["FBILLNO"];
+    //const url ='CGSL10101000032.json';
+    this.service.list(url,{}).then(data=>{
       loader.dismiss();
       if(data['data']){
           this.data = data['data'].T_PUR_Receiveentry.records;
@@ -49,12 +49,12 @@ export class ListDetailPage {
     });
   }
   logForm(){
-    alert('1');
+    alert(JSON.stringify(this.data));
   }
   dblList(item){
     let modal = this.modalCtrl.create(ListDetailInputPage, item);
     modal.onDidDismiss(data => {
-      console.log("Result: " + JSON.stringify(data));
+      console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
       if(data){
         item["QUANTITY"] = data["num"];
       }

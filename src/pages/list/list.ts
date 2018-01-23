@@ -37,7 +37,9 @@ export class ListPage {
       content: "加载中..."
     });
     loader.present();
-    this.service.list('T_PUR_Receive.json',{}).then(data=>{
+    //const url = 'T_PUR_Receive.jso';
+    const url = 'system/funcdef/query/pending/T_PUR_Receive';
+    this.service.list(url,{"field":"ZT","op":"=","value":"I"}).then(data=>{
      if(data['data']){
        loader.dismiss();
        if( data.data.records.length > 0 ){
