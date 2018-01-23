@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import{ ReceiptDetailPage} from '../receipt-detail/receipt-detail';
+import {HttpServiceProvider} from '../../providers/http-service/http-service';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the ReceiptPage page.
@@ -14,12 +17,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'receipt.html',
 })
 export class ReceiptPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public  items = [];
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public service:HttpServiceProvider,
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceiptPage');
+    this.loadDate();
+    console.log('ionViewDidLoad ListPage');
+  }
+  itemSelected(item) {
+    item["title"] = "发货通知单详情";
+    this.navCtrl.push(ReceiptDetailPage, { item: item });
+  }
+  loadDate(){
+    let loader = this.loadingCtrl.create({
+      content: "加载中..."
+    });
+    loader.present();
+    this.service.list('T_SAL_DELIVERYNOTICE.json',{}).then(data=>{
+      if(data['data']){
+        loader.dismiss();
+        if( data.data.records.length > 0 ){
+          this.items = data.data.records;
+        }
+      }else{
+        loader.dismiss();
+        alert('请求数据失败');
+      }
+
+    });
   }
 
 }

@@ -5,9 +5,12 @@ export class AppConfig{
   }
   //生产环境url
   public  static  getProUrl(){
-    return "";
+    return "http://127.0.0.1:8001/";
   }
-
+  //本地mock
+  public  static  getMockUrl(){
+    return "assets/data/";
+  }
   //接口数据
   public  static  appUrl(){
     return "http://192.168.30.224:9080/cloud";

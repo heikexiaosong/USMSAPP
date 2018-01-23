@@ -16,7 +16,7 @@ export class HttpServiceProvider {
   private  rootUrl:string;
 
   constructor(private http: Http) {
-    this.rootUrl = AppConfig.appUrl();
+    this.rootUrl = AppConfig.getMockUrl();
   }
 
   public get(url: string, paramObj: any) {
@@ -130,6 +130,6 @@ export class HttpServiceProvider {
 
   //请求list数据
   list(url,params){
-    return this.post(this.rootUrl+url ,params);
+    return this.get(this.rootUrl+url ,params);
   }
 }

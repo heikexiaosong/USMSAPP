@@ -7,17 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>出库单</ion-title>
+    <ion-title>收料通知单</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content >
-    <ion-list>
-      <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-        <h4 class="list-main-title">{{ item?.OUTSTOCK_CODE }} </h4>
-        <span class="list-main-content"><label>{{item?.OUTSTOCK_OUTAT  | date:"yyyy-MM-dd" }}</label> | {{item?.ZT}}</span>
-      </button>
-    </ion-list>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+      <h4 class="list-main-title">{{ item?.SUPNAME}} </h4>
+      <div class="list-main-content">
+        <label>{{item?.SALEDEPNAME}} </label> |
+        <label>{{item?.RECNAME}}</label> |
+        <label>{{item?.SALENAME}}</label> |
+        <label>{{item?.FDATE  | date:"yyyy-MM-dd" }}</label>
+      </div>
+    </button>
+  </ion-list>
 </ion-content>

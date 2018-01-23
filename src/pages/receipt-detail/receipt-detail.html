@@ -1,18 +1,40 @@
-<!--
-  Generated template for the ReceiptDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>receipt-detail</ion-title>
+    <ion-title>
+      {{listDetial?.title}}
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content >
+  <ion-item-group class="list-detail-info">
+    <ion-item-divider color="light"  style="color:#6b6767;">基本信息</ion-item-divider>
+    <ion-item ><label>收货商</label> <span style="margin-left: 4.2rem">{{listDetial.CFNAME}}</span></ion-item>
+    <ion-item ><label >发货时间</label><span style="margin-left: 3rem">{{listDetial.FDATE| date:"yyyy-MM-dd" }}</span></ion-item>
+    <ion-item ><label >发货部门</label><span style="margin-left: 3rem">{{listDetial.SALESFNAME}}</span></ion-item>
+    <ion-item ><label >发货人</label><span style="margin-left: 4.2rem">{{listDetial.SMANFNAME}}</span></ion-item>
+  </ion-item-group>
 
-<ion-content padding>
+  <ion-item-group>
+    <ion-item-divider color="light" style="color:#6b6767;">货物清单</ion-item-divider>
+    <form action="" (ngSubmit)="logForm()" style="border-bottom: 1px solid #e4e4e4">
+      <div class="row header">
+        <div class="col">名称</div>
+        <div class="col">单位</div>
+        <div class="col">应出数量</div>
+        <div class="col">实出数量</div>
+      </div>
+      <div class="row-body">
+        <div  *ngFor="let item of data" class="row" (click)="dblList(item)">
+          <div class="col dell">{{item?.FNAME}}</div>
+          <div class="col dell">{{item?.FNOTE}}</div>
+          <div class="col dell">{{item?.FQTY}}</div>
+          <div class="col"><ion-input type="text" name="num"  [(ngModel)] = "item.QUANTITY"></ion-input></div>
+        </div>
+      </div>
+      <button ion-button type="submit" block style="position: absolute;">提交</button>
+    </form>
+  </ion-item-group>
 
 </ion-content>
+

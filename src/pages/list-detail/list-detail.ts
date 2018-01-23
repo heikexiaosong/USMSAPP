@@ -39,19 +39,12 @@ export class ListDetailPage {
       content: "加载中..."
     });
     loader.present();
-    this.service.list('/system/funcdef/detail/T_SAL_OUTSTOCK/' + this.listDetial["OUTSTOCK_FOREIGNKEY"],'').then(data=>{
+    // const url='/system/funcdef/detail/T_SAL_DELIVERYNOTICE/' + this.listDetial["FBILLNO"];
+    const url ='CGSL10101000032.json';
+    this.service.list(url,'').then(data=>{
       loader.dismiss();
-      const record = this.master;
       if(data['data']){
-        if(data['data']['master']){
-          data.data.master.forEach(
-            function (eachObj) {
-              record[eachObj["name"]] = eachObj;
-            }
-          );
-          this.data = data.data.details.T_SAL_OUTSTOCKENTRY.records;
-        }
-
+          this.data = data['data'].T_PUR_Receiveentry.records;
       }
     });
   }

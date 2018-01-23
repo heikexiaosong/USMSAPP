@@ -29,7 +29,7 @@ export class ListPage {
     console.log('ionViewDidLoad ListPage');
   }
   itemSelected(item) {
-    item["title"] = "出库单详情";
+    item["title"] = "收料通知单详情";
     this.navCtrl.push(ListDetailPage, { item: item });
   }
   loadDate(){
@@ -37,7 +37,7 @@ export class ListPage {
       content: "加载中..."
     });
     loader.present();
-    this.service.list('/system/funcdef/T_SAL_OUTSTOCK/query',{}).then(data=>{
+    this.service.list('T_PUR_Receive.json',{}).then(data=>{
      if(data['data']){
        loader.dismiss();
        if( data.data.records.length > 0 ){

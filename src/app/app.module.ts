@@ -4,12 +4,15 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
-
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
 import {ListPageModule} from "../pages/list/list.module";
 import {ListDetailPageModule} from "../pages/list-detail/list-detail.module";
 import {ListDetailInputPageModule} from "../pages/list-detail-input/list-detail-input.module";
+import {ReceiptPageModule} from "../pages/receipt/receipt.module";
+import {ReceiptDetailPageModule} from "../pages/receipt-detail/receipt-detail.module";
+import {ReceiptDetailInputPageModule} from "../pages/receipt-detail-input/receipt-detail-input.module";
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import {AuthenticationProvider} from "../providers/authentication";
 import { AutologinPage } from '../pages/autologin/autologin';
@@ -27,9 +30,12 @@ import { HttpInterceptor } from '../interceptor/HttpInterceptor';
   imports: [
     BrowserModule,
     HttpModule,
-    ListDetailPageModule,
     ListPageModule,
+    ListDetailPageModule,
     ListDetailInputPageModule,
+    ReceiptPageModule,
+    ReceiptDetailPageModule,
+    ReceiptDetailInputPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
