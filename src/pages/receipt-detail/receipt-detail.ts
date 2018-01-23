@@ -4,6 +4,7 @@ import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import {ReceiptDetailInputPage} from '../receipt-detail-input/receipt-detail-input';
+import {AppConfig} from "../../app/app.config";
 
 
 /**
@@ -51,7 +52,21 @@ export class ReceiptDetailPage {
     });
   }
   logForm(){
-    alert(JSON.stringify(this.data));
+    var details = [{
+      id: 'T_SAL_DELIVERYNOTICEENTRY',
+      extend: 't_Sal_Deliverynoticeentry',
+      records: this.data
+    }];
+
+    this.listDetial["ZT"] = '提交';
+    this.listDetial["flag"] = 'U';
+
+    var data = {
+      "master": this.listDetial,
+      "details": details
+    };
+    console.log(JSON.stringify(data));
+    this.service.post(AppConfig.getProUrl() + "system/funcdef/T_SAL_DELIVERYNOTICE/update", data);
   }
   dblList(item){
     let modal = this.modalCtrl.create(ReceiptDetailInputPage, item);

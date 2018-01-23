@@ -39,7 +39,7 @@ export class ListPage {
     loader.present();
     //const url = 'T_PUR_Receive.jso';
     const url = 'system/funcdef/query/pending/T_PUR_Receive';
-    this.service.list(url,{"field":"ZT","op":"=","value":"I"}).then(data=>{
+    this.service.list(url,{"field":"ZT","op":"=","value":"分配"}).then(data=>{
      if(data['data']){
        loader.dismiss();
        if( data.data.records.length > 0 ){

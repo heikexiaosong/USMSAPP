@@ -39,7 +39,7 @@ export class ReceiptPage {
     loader.present();
     //const url = 'T_SAL_DELIVERYNOTICE.jso';
     const url = 'system/funcdef/query/pending/T_SAL_DELIVERYNOTICE';
-    this.service.list(url,{"field":"ZT","op":"=","value":"I"}).then(data=>{
+    this.service.list(url,{"field":"ZT","op":"=","value":"分配"}).then(data=>{
       if(data['data']){
         loader.dismiss();
         if( data.data.records.length > 0 ){

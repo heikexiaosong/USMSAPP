@@ -4,6 +4,7 @@ import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import {AppConfig} from "../../app/app.config";
 
 /**
  * Generated class for the ListDetailPage page.
@@ -50,6 +51,23 @@ export class ListDetailPage {
   }
   logForm(){
     alert(JSON.stringify(this.data));
+
+    var details = [{
+      id: 'T_PUR_RECEIVEENTRY',
+      extend: 'T_PUR_Receiveentry',
+      records: this.data
+    }];
+
+    this.listDetial["ZT"] = '提交';
+    this.listDetial["flag"] = 'U';
+
+    var data = {
+      "master": this.listDetial,
+      "details": details
+    };
+    console.log(JSON.stringify(data));
+    this.service.post(AppConfig.getProUrl() + "system/funcdef/T_PUR_Receive/update", data);
+
   }
   dblList(item){
     let modal = this.modalCtrl.create(ListDetailInputPage, item);
