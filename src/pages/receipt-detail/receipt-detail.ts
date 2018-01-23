@@ -41,9 +41,9 @@ export class ReceiptDetailPage {
       content: "加载中..."
     });
     loader.present();
-    // const url='/system/funcdef/detail/T_SAL_DELIVERYNOTICE/' + this.listDetial["FBILLNO"];
-    const url ='CGSL10101000033.json';
-    this.service.list(url,'').then(data=>{
+    const url='system/funcdef/details/T_SAL_DELIVERYNOTICE/' + this.listDetial["FBILLNO"];
+    //const url ='CGSL10101000033.json';
+    this.service.list(url,{}).then(data=>{
       loader.dismiss();
       if(data['data']){
         this.data = data['data'].t_Sal_Deliverynoticeentry.records;
@@ -51,7 +51,7 @@ export class ReceiptDetailPage {
     });
   }
   logForm(){
-    alert('1');
+    alert(JSON.stringify(this.data));
   }
   dblList(item){
     let modal = this.modalCtrl.create(ReceiptDetailInputPage, item);

@@ -37,7 +37,9 @@ export class ReceiptPage {
       content: "加载中..."
     });
     loader.present();
-    this.service.list('T_SAL_DELIVERYNOTICE.json',{}).then(data=>{
+    //const url = 'T_SAL_DELIVERYNOTICE.jso';
+    const url = 'system/funcdef/query/pending/T_SAL_DELIVERYNOTICE';
+    this.service.list(url,{"field":"ZT","op":"=","value":"I"}).then(data=>{
       if(data['data']){
         loader.dismiss();
         if( data.data.records.length > 0 ){
