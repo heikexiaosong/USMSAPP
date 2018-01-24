@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
+import {LoadingController, NavController, ToastController} from 'ionic-angular';
 import {AuthenticationProvider} from "../../providers/authentication";
 import { Md5 } from 'ts-md5/dist/md5';
 import {HomePage} from "../home/home";
@@ -15,6 +15,8 @@ export class LoginPage {
 
   constructor(
     private _nav: NavController,
+    public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
     private authProvider: AuthenticationProvider) {
   }
 
@@ -24,15 +26,24 @@ export class LoginPage {
   }
 
   public login() {
-    this._nav.setRoot(HomePage);
+    //this._nav.setRoot(HomePage);
     // Validation
     if(this.userName){
       if ( this.userName.trim()=='' || this.userPwd.trim()=='') {
-        alert("用户名/密码不能为空");
+        let toast = this.toastCtrl.create({
+          message: '用户名/密码不能为空',
+          duration: 2000
+        });
+        toast.present();
         return;
       }
       //Take the values from  the form control
       var encodePWD = Md5.hashStr(  this.userName.trim().toLocaleLowerCase() + "USER" +  this.userPwd + "PASSWORD");
+
+      let loader = this.loadingCtrl.create({
+        content: "正在登陆..."
+      });
+      loader.present();
       this.authProvider.login(this.userName, encodePWD).subscribe( data => {
           console.log("Login: " +  JSON.stringify(data.json()));
           var result = data.json();
@@ -40,11 +51,18 @@ export class LoginPage {
             localStorage.setItem("auth_token", data.json().data.auth_token);
             this._nav.setRoot(HomePage);
           } else {
-            alert(result.message);
+            let toast = this.toastCtrl.create({
+              message: result.message,
+              duration: 3000
+            });
+            toast.present();
           }
         },
         err => console.error(err),
-        () => { console.log('getRepos completed') }
+        () => {
+          loader.dismiss();
+          console.log('getRepos completed')
+         }
       );
     }
   }

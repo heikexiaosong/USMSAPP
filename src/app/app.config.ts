@@ -13,6 +13,6 @@ export class AppConfig{
   }
   //接口数据
   public  static  appUrl(){
-    return "http://192.168.30.224:9080/cloud";
+    return "http://192.168.1.114:9080/cloud";
   }
 }
