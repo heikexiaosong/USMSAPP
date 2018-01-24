@@ -5,7 +5,7 @@ export class AppConfig{
   }
   //生产环境url
   public  static  getProUrl(){
-    return "http://localhost:9080/cloud/";
+    return "http://192.168.1.114:9080/cloud/";
   }
   //本地mock
   public  static  getMockUrl(){

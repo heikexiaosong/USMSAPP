@@ -1,5 +1,6 @@
 //import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastController } from 'ionic-angular';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {AppConfig} from "../../app/app.config";
@@ -15,7 +16,8 @@ export class HttpServiceProvider {
 
   private  rootUrl:string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              public toastCtrl: ToastController) {
     this.rootUrl = AppConfig.getProUrl();
   }
 
@@ -24,6 +26,11 @@ export class HttpServiceProvider {
       .toPromise()
       .then(res => this.handleSuccess(res.json()))
       .catch(error => this.handleError(error));
+  }
+
+  public postObservable(url: string, paramObj: any) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}));
   }
 
   public post(url: string, paramObj: any) {
@@ -44,7 +51,11 @@ export class HttpServiceProvider {
 
   private handleSuccess(result) {
     if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
-      alert(result.msg);//这里使用ToastController
+      let toast = this.toastCtrl.create({
+        message: result.msg,
+        duration: 3000
+      });
+      toast.present();
     }
     return result;
   }

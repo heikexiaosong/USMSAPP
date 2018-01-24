@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
-import {HttpServiceProvider} from '../../providers/http-service/http-service';
-import { ModalController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
 
 
 /**

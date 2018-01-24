@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -25,6 +25,7 @@ export class ReceiptDetailPage {
   public master = {};
   public  data=[];
   constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController,
               public navParams: NavParams,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
@@ -65,8 +66,33 @@ export class ReceiptDetailPage {
       "master": this.listDetial,
       "details": details
     };
+
+    let loader = this.loadingCtrl.create({
+      content: "正在处理..."
+    });
+    loader.present();
     console.log(JSON.stringify(data));
-    this.service.post(AppConfig.getProUrl() + "system/funcdef/T_SAL_DELIVERYNOTICE/update", data);
+    this.service.postObservable(AppConfig.getProUrl() + "system/funcdef/T_SAL_DELIVERYNOTICE/update", data).subscribe(
+      data => {
+        var result = data.json();
+        console.log("来料提交Result: " + JSON.stringify(result));
+        if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
+          let toast = this.toastCtrl.create({
+            message: result.msg,
+            duration: 3000
+          });
+          toast.present();
+        } else {
+          alert("提交成功!");
+          this.navCtrl.pop();
+        }
+      },
+      err => console.error(err),
+      () => {
+        loader.dismiss();
+        console.log('getRepos completed');
+      }
+    );
   }
   dblList(item){
     let modal = this.modalCtrl.create(ReceiptDetailInputPage, item);
