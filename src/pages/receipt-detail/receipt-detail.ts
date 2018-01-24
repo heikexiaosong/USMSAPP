@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
@@ -14,12 +14,30 @@ import {AppConfig} from "../../app/app.config";
  * Ionic pages and navigation.
  */
 
+export enum KEY_CODE {
+  ENTER_KEY = 13
+}
+
 @IonicPage()
 @Component({
   selector: 'page-receipt-detail',
   templateUrl: 'receipt-detail.html',
 })
 export class ReceiptDetailPage {
+
+  private parentCode: string = "";
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(JSON.stringify(event.key) + event.code);
+    console.log("Code:" + this.parentCode + " <== " + event.keyCode);
+    if ( event.keyCode == KEY_CODE.ENTER_KEY ){
+      this.scanPackage(this.parentCode);
+      this.parentCode = "";
+    } else {
+      this.parentCode = this.parentCode + event.key;
+    }
+  }
 
   public  listDetial= {};
   public master = {};
@@ -32,6 +50,10 @@ export class ReceiptDetailPage {
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
+  }
+
+  scanPackage(parentCode) {
+
   }
 
   ionViewDidLoad() {

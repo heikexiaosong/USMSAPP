@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, HostListener} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
 import { ModalController } from 'ionic-angular';
@@ -14,12 +14,31 @@ import { ToastController } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
+export enum KEY_CODE {
+  ENTER_KEY = 13
+}
+
 @IonicPage()
 @Component({
   selector: 'page-list-detail',
   templateUrl: 'list-detail.html',
 })
 export class ListDetailPage {
+
+  private parentCode: string = "";
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(JSON.stringify(event.key) + event.code);
+    console.log("Code:" + this.parentCode + " <== " + event.keyCode);
+    if ( event.keyCode == KEY_CODE.ENTER_KEY ){
+      this.scanPackage(this.parentCode);
+      this.parentCode = "";
+    } else {
+      this.parentCode = this.parentCode + event.key;
+    }
+  }
+
   public  listDetial= [];
   public master = {};
   public  data=[];
@@ -31,6 +50,35 @@ export class ListDetailPage {
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
+  }
+
+  scanPackage(parentCode) {
+    console.log("Scan: " + parentCode);
+    if ( parentCode.length == 0) {
+      return;
+    }
+
+    const url = AppConfig.getProUrl() + "";
+    this.service.postObservable(url, {}).subscribe(
+      data => {
+        var result = data.json();
+        console.log("箱码扫描: " + JSON.stringify(result));
+        if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
+          let toast = this.toastCtrl.create({
+            message: result.msg,
+            duration: 3000
+          });
+          toast.present();
+        } else {
+          console.log("");
+        }
+      },
+      err => console.error(err),
+      () => {
+        console.log('getRepos completed');
+      }
+    );
+    this.parentCode = "";
   }
 
   ionViewDidLoad() {

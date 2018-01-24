@@ -18,10 +18,10 @@
 
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+      <h2 class="list-main-title">{{ item?.FBILLNO}} </h2>
       <h4 class="list-main-title">{{ item?.CFNAME}} </h4>
       <div class="list-main-content">
         <label>{{item?.SALEDEPNAME}} </label> |
-        <label>{{item?.SMANFNAME}}</label> |
         <label>{{item?.WMANFNAME}}</label> |
         <label>{{item?.FDATE  | date:"yyyy-MM-dd" }}</label>
       </div>
