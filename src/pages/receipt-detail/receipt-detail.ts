@@ -59,32 +59,34 @@ export class ReceiptDetailPage {
       return;
     }
 
-    const url = AppConfig.getProUrl() + "ws/qrcodes?filters[parent]=" + parentCode;
+    const url = AppConfig.getProUrl() + "ws/packagings/" + parentCode;
     this.service.getObservable(url).subscribe(
       data => {
-        var goodsbatchs = data.json()||[];
-        console.log("箱码扫描: " + JSON.stringify(goodsbatchs));
-        if ( goodsbatchs.length > 0 ) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
+        var packaging = data.json()||{};
+        console.log("箱码扫描: " + JSON.stringify(packaging));
 
-          var batchMap = {};
-          for(var i= 0;i< goodsbatchs.length;i++){
-            var batch = goodsbatchs[i];
-            var count = batchMap[batch["goodsbatchcode"]] || 0;
-            batchMap[batch["goodsbatchcode"]] = count + 1;
-          }
-
+        var goodsbatchcode = packaging["goodsbatchcode"];
+        if ( goodsbatchcode==null || goodsbatchcode==='' ){
+          let toast = this.toastCtrl.create({
+            message: '此箱码为空箱',
+            duration: 3000
+          });
+          toast.present();
+        } else {
+          var quantity = packaging["quantity"]||0;
           for(var i= 0;i<this.data.length;i++){
             var item = this.data[i];
-            var batchCount = batchMap[item["FNUMBER"]];
-            if  ( batchCount ){
+            console.log("item: " + JSON.stringify(item));
+            if ( goodsbatchcode === item["MFNUMBER"] ){
               var quantityStr = item["QUANTITY"]||"0";
-              var quantity = parseInt(quantityStr);
-              item["QUANTITY"] = quantity + batchCount;
+              console.log("quantityStr: " + quantityStr);
+              var bquantity = parseInt(quantityStr);
+              item["QUANTITY"] = bquantity + quantity;
             }
             this.data[i] = item;
           }
-          this.detectorRef.detectChanges();
         }
+        this.detectorRef.detectChanges();
       },
       err => console.error(err),
       () => {
