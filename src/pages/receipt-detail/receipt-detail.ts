@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
@@ -47,13 +47,51 @@ export class ReceiptDetailPage {
               public navParams: NavParams,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
+              public detectorRef: ChangeDetectorRef,
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
   }
 
   scanPackage(parentCode) {
+    console.log("Scan: " + parentCode);
+    if ( parentCode.length == 0) {
+      return;
+    }
 
+    const url = AppConfig.getProUrl() + "ws/qrcodes?filters[parent]=" + parentCode;
+    this.service.getObservable(url).subscribe(
+      data => {
+        var goodsbatchs = data.json()||[];
+        console.log("箱码扫描: " + JSON.stringify(goodsbatchs));
+        if ( goodsbatchs.length > 0 ) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
+
+          var batchMap = {};
+          for(var i= 0;i< goodsbatchs.length;i++){
+            var batch = goodsbatchs[i];
+            var count = batchMap[batch["goodsbatchcode"]] || 0;
+            batchMap[batch["goodsbatchcode"]] = count + 1;
+          }
+
+          for(var i= 0;i<this.data.length;i++){
+            var item = this.data[i];
+            var batchCount = batchMap[item["FNUMBER"]];
+            if  ( batchCount ){
+              var quantityStr = item["QUANTITY"]||"0";
+              var quantity = parseInt(quantityStr);
+              item["QUANTITY"] = quantity + batchCount;
+            }
+            this.data[i] = item;
+          }
+          this.detectorRef.detectChanges();
+        }
+      },
+      err => console.error(err),
+      () => {
+        console.log('getRepos completed');
+      }
+    );
+    this.parentCode = "";
   }
 
   ionViewDidLoad() {

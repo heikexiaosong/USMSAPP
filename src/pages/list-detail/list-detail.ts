@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
@@ -47,6 +47,7 @@ export class ListDetailPage {
               public navParams: NavParams,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
+              public detectorRef: ChangeDetectorRef,
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
@@ -58,19 +59,34 @@ export class ListDetailPage {
       return;
     }
 
-    const url = AppConfig.getProUrl() + "";
-    this.service.postObservable(url, {}).subscribe(
+    const url = AppConfig.getProUrl() + "ws/qrcodes?filters[parent]=" + parentCode;
+    this.service.getObservable(url).subscribe(
       data => {
-        var result = data.json();
-        console.log("箱码扫描: " + JSON.stringify(result));
-        if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
-          let toast = this.toastCtrl.create({
-            message: result.msg,
-            duration: 3000
-          });
-          toast.present();
-        } else {
-          console.log("");
+        var goodsbatchs = data.json()||[];
+        console.log("箱码扫描: " + JSON.stringify(goodsbatchs));
+        if ( goodsbatchs.length > 0 ) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
+
+          var batchMap = {};
+          for(var i= 0;i< goodsbatchs.length;i++){
+            var batch = goodsbatchs[i];
+            var count = batchMap[batch["goodsbatchcode"]] || 0;
+            batchMap[batch["goodsbatchcode"]] = count + 1;
+          }
+
+          for(var i= 0;i<this.data.length;i++){
+            var item = this.data[i];
+            var batchCount = batchMap[item["FNUMBER"]];
+            console.log("item: " + JSON.stringify(item));
+            console.log("batchCount: " + JSON.stringify(batchCount));
+            if  ( batchCount  ){
+              var quantityStr = item["QUANTITY"]||"0";
+              console.log("quantityStr: " + quantityStr);
+              var quantity = parseInt(quantityStr);
+              item["QUANTITY"] = quantity + batchCount;
+            }
+            this.data[i] = item;
+          }
+          this.detectorRef.detectChanges();
         }
       },
       err => console.error(err),

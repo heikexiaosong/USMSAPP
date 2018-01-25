@@ -5,7 +5,7 @@ export class AppConfig{
   }
   //生产环境url
   public  static  getProUrl(){
-    return "http://192.168.1.114:9080/cloud/";
+    return "http://192.168.1.101:9080/cloud/";
   }
   //本地mock
   public  static  getMockUrl(){
@@ -13,6 +13,6 @@ export class AppConfig{
   }
   //接口数据
   public  static  appUrl(){
-    return "http://192.168.1.114:9080/cloud";
+    return "http://192.168.1.101:9080/cloud";
   }
 }

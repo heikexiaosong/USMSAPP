@@ -33,6 +33,11 @@ export class HttpServiceProvider {
     return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}));
   }
 
+  public getObservable(url: string) {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(url, new RequestOptions({headers: headers}));
+  }
+
   public post(url: string, paramObj: any) {
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}))
