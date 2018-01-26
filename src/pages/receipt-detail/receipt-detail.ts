@@ -66,8 +66,8 @@ export class ReceiptDetailPage {
         var packaging = data.json()||{};
         console.log("箱码扫描: " + JSON.stringify(packaging));
 
-        var goodsbatchcode = packaging["goodsbatchcode"];
-        if ( goodsbatchcode==null || goodsbatchcode==='' ){
+        var goodsbatch = packaging["goodsbatch"];
+        if ( goodsbatch==null ){
           let toast = this.toastCtrl.create({
             message: '此箱码为空箱',
             duration: 3000
@@ -78,7 +78,7 @@ export class ReceiptDetailPage {
           for(var i= 0;i<this.data.length;i++){
             var item = this.data[i];
             console.log("item: " + JSON.stringify(item));
-            if ( goodsbatchcode === item["MFNUMBER"] ){
+            if ( goodsbatch === item["FLOTID"] ){
               var quantityStr = item["QUANTITY"]||"0";
               console.log("quantityStr: " + quantityStr);
               var bquantity = parseInt(quantityStr);

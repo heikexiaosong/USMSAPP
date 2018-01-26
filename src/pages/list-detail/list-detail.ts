@@ -6,6 +6,7 @@ import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import {AppConfig} from "../../app/app.config";
 import { ToastController } from 'ionic-angular';
+import {BatchInputPage} from "../batch-input/batch-input";
 
 /**
  * Generated class for the ListDetailPage page.
@@ -109,7 +110,12 @@ export class ListDetailPage {
     this.service.list(url,{}).then(data=>{
       loader.dismiss();
       if(data['data']){
-          this.data = data['data'].T_PUR_Receiveentry.records;
+          this.data = data['data'].T_PUR_Receiveentry.records||[];
+          for(var i= 0; i<this.data.length; i++){
+            var item = this.data[i];
+            console.log("item: " + JSON.stringify(item));
+            item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["VERID"] || "";
+          }
       }
     });
   }
@@ -156,14 +162,24 @@ export class ListDetailPage {
   }
 
   dblList(item){
-    let modal = this.modalCtrl.create(ListDetailInputPage, item);
-    modal.onDidDismiss(data => {
-      console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
-      if(data){
-        item["QUANTITY"] = data["num"];
-      }
 
-    });
-    modal.present();
+
+    if ( item["MGOODSBATCH"] ){
+      let modal = this.modalCtrl.create(ListDetailInputPage, item);
+      modal.onDidDismiss(data => {
+        console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
+        if(data){
+          item["QUANTITY"] = data["num"];
+        }
+      });
+      modal.present();
+    } else {
+      new Promise((resolve, reject) => {
+        this.navCtrl.push(BatchInputPage, { resolve: resolve, goodcode: item["FMATERIALID"] });
+      }).then((data) => {
+        item["MGOODSBATCH"] = data["fmasterid"];
+        console.log(JSON.stringify(data["fmasterid"]));
+      });
+    }
   }
 }
