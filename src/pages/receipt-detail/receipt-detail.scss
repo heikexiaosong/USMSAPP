@@ -5,13 +5,13 @@ page-receipt-detail {
     color: white;
   }
   .col {
-    border: solid 1px #e8e8e8;
-    border-bottom-style: none;
-    border-right-style: none;
-    width: 2rem;
-    text-align: center;
-    line-height: 2rem;
-  }
+      border: solid 1px #e8e8e8;
+      border-bottom-style: none;
+      border-right-style: none;
+      width: 2rem;
+      text-align: center;
+      line-height: 2rem;
+    }
 
   .col:last-child {
     border-right: solid 1px grey;
@@ -45,5 +45,30 @@ page-receipt-detail {
   .dell{
     padding-top: 1.5rem;
     height: 6rem;
+  }
+
+  .list-main-title{
+    font-size: 2rem;
+    margin-bottom: 5px;
+  }
+  .list-main-content{
+    font-size: 1.4rem;
+    opacity: 0.7;
+    label{
+      min-width: 200px;
+    }
+  }
+  .toolbar-background-md,.toolbar-background-ios{
+    background: linear-gradient(to right, #347eff, #1ea3ff);
+  }
+  .toolbar-title-ios,.toolbar-title-md{
+    color: white;
+  }
+  .button-inner{
+    color: white;
+  }
+
+  .label-md {
+    margin: 7px 5px 8px 0;
   }
 }

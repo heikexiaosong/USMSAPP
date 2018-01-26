@@ -17,15 +17,18 @@ import { HttpServiceProvider } from '../providers/http-service/http-service';
 import {AuthenticationProvider} from "../providers/authentication";
 import { AutologinPage } from '../pages/autologin/autologin';
 import { LoginPage } from '../pages/login/login';
+import { BatchSelectPage } from '../pages/batch-select/batch-select';
 import { provideInterceptorService  } from 'ng2-interceptors';
 import { HttpInterceptor } from '../interceptor/HttpInterceptor';
+import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AutologinPage,
-    LoginPage
+    LoginPage,
+    BatchSelectPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { HttpInterceptor } from '../interceptor/HttpInterceptor';
     MyApp,
     HomePage,
     AutologinPage,
-    LoginPage
+    LoginPage,
+    BatchSelectPage
   ],
   providers: [
     StatusBar,

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>选择数量</ion-title>
+    <ion-title>物料出库数量</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,11 +15,28 @@
 
 <ion-content padding>
 
-  <ion-input type="text" name="num"  [(ngModel)] = "num" ></ion-input>
+  <ion-item>
+    <ion-label color="primary" fixed>物料</ion-label>
+    <ion-input readonly=true  [(ngModel)] = "name" ></ion-input>
+  </ion-item>
 
-  <button ion-button type="submit" (click)="r_ok()" >提交</button>
+  <ion-item>
+    <ion-label color="primary" fixed>批次</ion-label>
+    <ion-input readonly=true  [(ngModel)] = "batch" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>物料实出数量</ion-label>
+    <ion-input type="number" [(ngModel)] = "num" #focusInput></ion-input>
+  </ion-item>
 
 </ion-content>
 
+
+<ion-footer>
+  <div class="row" style="text-align: -webkit-center;">
+    <button ion-button class="footer-btn" block (click)="r_ok()">确 定</button>
+  </div>
+</ion-footer>
 
 

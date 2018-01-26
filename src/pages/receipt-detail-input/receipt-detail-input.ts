@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 
 
@@ -15,16 +15,30 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
   templateUrl: 'receipt-detail-input.html',
 })
 export class ReceiptDetailInputPage {
-  private num = 0;
+
+  @ViewChild('focusInput') focusInput ;
+
+  public num = 0;
+  public name = "";
+  public batch = "";
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               public navParams: NavParams) {
-    console.log(JSON.stringify(navParams));
-    console.log(navParams.get("QUANTITY"));
+    console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams));
+    console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams.get("FNAME")));
+
+    this.num = navParams.get("FQTY");
+    this.name = navParams.get("FNAME");
+    this.batch = navParams.get("MGOODSBATCH");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');
+
+
+    setTimeout(() => {
+      this.focusInput.setFocus();
+    },150); //a least 150ms.
   }
 
   r_ok() {
