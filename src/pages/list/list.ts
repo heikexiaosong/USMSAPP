@@ -3,6 +3,7 @@ import {IonicPage, NavController, ToastController} from 'ionic-angular';
 import{ ListDetailPage} from '../list-detail/list-detail';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { LoadingController } from 'ionic-angular';
+import {AppConfig} from "../../app/app.config";
 /**
  * Generated class for the ListPage page.
  *
@@ -45,6 +46,7 @@ export class ListPage {
       refresher.complete();
       if(data['data']){
         this.items = data.data.records||[];
+        AppConfig.T_PUR_Receive = this.items;
       }else{
         let toast = this.toastCtrl.create({
           message: '数据请求失败',
@@ -66,6 +68,7 @@ export class ListPage {
      if(data['data']){
        loader.dismiss();
        this.items = data.data.records || [];
+       AppConfig.T_PUR_Receive = this.items;
      }else{
        loader.dismiss();
        let toast = this.toastCtrl.create({

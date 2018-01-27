@@ -1,4 +1,8 @@
 export class AppConfig{
+
+  public static  T_PUR_Receive = [];
+  public static  T_SAL_DELIVERYNOTICE = [];
+
   //测试环境url
   public  static getDebugUrl(){
     return "http://118.31.239.85:8001/";

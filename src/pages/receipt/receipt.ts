@@ -3,6 +3,7 @@ import {IonicPage, NavController, ToastController} from 'ionic-angular';
 import{ ReceiptDetailPage} from '../receipt-detail/receipt-detail';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { LoadingController } from 'ionic-angular';
+import {AppConfig} from "../../app/app.config";
 
 /**
  * Generated class for the ReceiptPage page.
@@ -42,6 +43,7 @@ export class ReceiptPage {
       refresher.complete();
       if(data['data']){
         this.items = data.data.records||[];
+        AppConfig.T_SAL_DELIVERYNOTICE = this.items;
       }else{
         let toast = this.toastCtrl.create({
           message: '数据请求失败',
@@ -68,6 +70,7 @@ export class ReceiptPage {
       if(data['data']){
         loader.dismiss();
         this.items = data.data.records||[];
+        AppConfig.T_SAL_DELIVERYNOTICE = this.items;
       }else{
         loader.dismiss();
         alert('请求数据失败');

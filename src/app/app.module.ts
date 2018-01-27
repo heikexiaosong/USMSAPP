@@ -23,6 +23,7 @@ import { HttpInterceptor } from '../interceptor/HttpInterceptor';
 import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
 import {ExpressSelectPage} from "../pages/express-select/express-select";
 import {ExpressorderPage} from "../pages/expressorder/expressorder";
+import {NativeAudio} from "@ionic-native/native-audio";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,9 @@ import {ExpressorderPage} from "../pages/expressorder/expressorder";
   ],
   providers: [
     StatusBar,
-    SplashScreen,HttpInterceptor,
+    SplashScreen,
+    HttpInterceptor,
+    NativeAudio,
     provideInterceptorService([
       HttpInterceptor
     ]),
