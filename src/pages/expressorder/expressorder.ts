@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 
 /**
@@ -17,9 +17,11 @@ export class ExpressorderPage {
 
   private EXPRESSOID = "";
 
+
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               public navParams: NavParams) {
+    this.EXPRESSOID = navParams.get("EXPRESSOID");
   }
 
   ionViewDidLoad() {
