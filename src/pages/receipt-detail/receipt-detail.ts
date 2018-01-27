@@ -6,6 +6,8 @@ import { LoadingController } from 'ionic-angular';
 import {ReceiptDetailInputPage} from '../receipt-detail-input/receipt-detail-input';
 import {AppConfig} from "../../app/app.config";
 import {BatchSelectPage} from "../batch-select/batch-select";
+import {ExpressSelectPage} from "../express-select/express-select";
+import {ExpressorderPage} from "../expressorder/expressorder";
 
 
 /**
@@ -27,6 +29,8 @@ export enum KEY_CODE {
 export class ReceiptDetailPage {
 
   private parentCode: string = "";
+
+  private packages = [];
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -83,6 +87,8 @@ export class ReceiptDetailPage {
               console.log("quantityStr: " + quantityStr);
               var bquantity = parseInt(quantityStr);
               item["QUANTITY"] = bquantity + quantity;
+              this.packages.push(parentCode);
+              console.log(JSON.stringify(this.packages))
             }
             this.data[i] = item;
           }
@@ -151,8 +157,17 @@ export class ReceiptDetailPage {
           });
           toast.present();
         } else {
-          alert("提交成功!");
-          this.navCtrl.pop();
+          this.service.postObservable(AppConfig.getProUrl() + "ws/qrcodes/binding/" + this.listDetial["FBILLNO"], {datas: this.packages}).subscribe(
+            data => {
+              console.log("Binding Result: " + JSON.stringify(data.json()));
+              alert("提交成功!");
+              this.navCtrl.pop();
+            },
+            err => console.error(err),
+            () => {
+              console.log('getRepos completed');
+            }
+          );
         }
       },
       err => console.error(err),
@@ -162,6 +177,29 @@ export class ReceiptDetailPage {
       }
     );
   }
+
+  express(master){
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(ExpressSelectPage, { resolve: resolve, master: master});
+    }).then((data) => {
+      this.listDetial["EXPRESSCODE"] = data["FCODE"];
+      this.listDetial["EXPRESS"] = data["FNAME"];
+      console.log(JSON.stringify(data["fmasterid"]));
+    });
+  }
+
+  expressOrder(master){
+
+    let modal = this.modalCtrl.create(ExpressorderPage, master);
+    modal.onDidDismiss(data => {
+      console.log("Result: " + JSON.stringify(data));
+      if(data){
+        this.listDetial["EXPRESSOID"] = data["EXPRESSOID"];
+      }
+    });
+    modal.present();
+  }
+
   dblList(item){
 
     if ( item["MGOODSBATCH"] ){

@@ -7,6 +7,8 @@ import { LoadingController } from 'ionic-angular';
 import {AppConfig} from "../../app/app.config";
 import { ToastController } from 'ionic-angular';
 import {BatchInputPage} from "../batch-input/batch-input";
+import {ExpressSelectPage} from "../express-select/express-select";
+import {ExpressorderPage} from "../expressorder/expressorder";
 
 /**
  * Generated class for the ListDetailPage page.
@@ -159,6 +161,28 @@ export class ListDetailPage {
         console.log('getRepos completed');
       }
     );
+  }
+
+  express(master){
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(ExpressSelectPage, { resolve: resolve, master: master});
+    }).then((data) => {
+      this.listDetial["EXPRESSCODE"] = data["FCODE"];
+      this.listDetial["EXPRESS"] = data["FNAME"];
+      console.log(JSON.stringify(data["fmasterid"]));
+    });
+  }
+
+  expressOrder(master){
+
+    let modal = this.modalCtrl.create(ExpressorderPage, master);
+    modal.onDidDismiss(data => {
+      console.log("Result: " + JSON.stringify(data));
+      if(data){
+        this.listDetial["EXPRESSOID"] = data["EXPRESSOID"];
+      }
+    });
+    modal.present();
   }
 
   dblList(item){

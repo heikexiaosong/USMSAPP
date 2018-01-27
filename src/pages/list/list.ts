@@ -65,9 +65,7 @@ export class ListPage {
     this.service.list(url,{"field":"ZT","op":"=","value":"分配"}).then(data=>{
      if(data['data']){
        loader.dismiss();
-       if( data.data.records.length > 0 ){
-         this.items = data.data.records;
-       }
+       this.items = data.data.records || [];
      }else{
        loader.dismiss();
        let toast = this.toastCtrl.create({

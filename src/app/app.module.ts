@@ -21,6 +21,8 @@ import { BatchSelectPage } from '../pages/batch-select/batch-select';
 import { provideInterceptorService  } from 'ng2-interceptors';
 import { HttpInterceptor } from '../interceptor/HttpInterceptor';
 import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
+import {ExpressSelectPage} from "../pages/express-select/express-select";
+import {ExpressorderPage} from "../pages/expressorder/expressorder";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
     HomePage,
     AutologinPage,
     LoginPage,
-    BatchSelectPage
+    BatchSelectPage,
+    ExpressSelectPage,
+    ExpressorderPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,9 @@ import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
     HomePage,
     AutologinPage,
     LoginPage,
-    BatchSelectPage
+    BatchSelectPage,
+    ExpressSelectPage,
+    ExpressorderPage
   ],
   providers: [
     StatusBar,

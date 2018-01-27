@@ -13,6 +13,8 @@
     <ion-item ><label >发货时间</label><span style="margin-left: 3rem">{{listDetial.FDATE| date:"yyyy-MM-dd" }}</span></ion-item>
     <ion-item ><label >发货部门</label><span style="margin-left: 3rem">{{listDetial.SALESFNAME}}</span></ion-item>
     <ion-item ><label >发货人</label><span style="margin-left: 4.2rem">{{listDetial.SMANFNAME}}</span></ion-item>
+    <ion-item (click) ="express(listDetial)"><label >物流公司</label><span style="margin-left: 4.2rem">{{listDetial.EXPRESS}}</span></ion-item>
+    <ion-item (click) ="expressOrder(listDetial)" ><label >运单号</label><span style="margin-left: 4.2rem">{{listDetial.EXPRESSOID}}</span></ion-item>
   </ion-item-group>
 
   <ion-item-group>
