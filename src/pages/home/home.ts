@@ -15,12 +15,11 @@ import {NativeAudio} from "@ionic-native/native-audio";
 })
 export class HomePage {
 
-
   constructor(public navCtrl: NavController,
               public service: HttpServiceProvider,
               public nativeAudio: NativeAudio,
               public navParams: NavParams) {
-    setInterval(this.loopr.bind(this), 1000*20);
+    setInterval(this.loopr.bind(this), 1000*60*5);
   }
 
   loopr(){

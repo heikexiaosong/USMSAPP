@@ -3,6 +3,7 @@ import {LoadingController, NavController, ToastController} from 'ionic-angular';
 import {AuthenticationProvider} from "../../providers/authentication";
 import { Md5 } from 'ts-md5/dist/md5';
 import {HomePage} from "../home/home";
+import {AppConfig} from "../../app/app.config";
 
 @Component({
   selector: 'page-login',
@@ -12,12 +13,14 @@ export class LoginPage {
 
   private userName: string;
   private userPwd: string;
+  private url: string;
 
   constructor(
     private _nav: NavController,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     private authProvider: AuthenticationProvider) {
+    this.url = AppConfig.url;
   }
 
   ionViewDidLoad() {
@@ -28,6 +31,17 @@ export class LoginPage {
   public login() {
     //this._nav.setRoot(HomePage);
     // Validation
+    AppConfig.url = this.url;
+    debugger;
+    if ( this.url.trim()=='' ) {
+      let toast = this.toastCtrl.create({
+        message: '服务器地址不能为空',
+        duration: 2000
+      });
+      toast.present();
+      return;
+    }
+
     if(this.userName){
       if ( this.userName.trim()=='' || this.userPwd.trim()=='') {
         let toast = this.toastCtrl.create({
