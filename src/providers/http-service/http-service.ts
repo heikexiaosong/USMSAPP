@@ -29,26 +29,35 @@ export class HttpServiceProvider {
   }
 
   public postObservable(url: string, paramObj: any) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}));
+    let headers = new Headers({'Content-Type': 'application/json', 'Auth-Token': localStorage.getItem("auth_token")});
+    let params = new URLSearchParams();
+    params.set('Auth-Token', localStorage.getItem("auth_token"));
+    let options = new RequestOptions({ headers: headers, search: params });
+    return this.http.post(url, paramObj||{}, options);
   }
 
   public getObservable(url: string) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.get(url, new RequestOptions({headers: headers}));
+    let headers = new Headers({'Content-Type': 'application/json', 'Auth-Token': localStorage.getItem("auth_token")});
+    let params = new URLSearchParams();
+    params.set('Auth-Token', localStorage.getItem("auth_token"));
+    return this.http.get(url,  new RequestOptions({ headers: headers, search: params }));
   }
 
   public post(url: string, paramObj: any) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers}))
+    let headers = new Headers({'Content-Type': 'application/json', 'Auth-Token': localStorage.getItem("auth_token")});
+    let params = new URLSearchParams();
+    params.set('Auth-Token', localStorage.getItem("auth_token"));
+    return this.http.post(url, paramObj||{}, new RequestOptions({headers: headers, search: params}))
       .toPromise()
       .then(res => this.handleSuccess(res.json()))
       .catch(error => this.handleError(error));
   }
 
   public postBody(url: string, paramObj: any) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, paramObj, new RequestOptions({headers: headers}))
+    let headers = new Headers({'Content-Type': 'application/json', 'Auth-Token': localStorage.getItem("auth_token")});
+    let params = new URLSearchParams();
+    params.set('Auth-Token', localStorage.getItem("auth_token"));
+    return this.http.post(url, paramObj, new RequestOptions({headers: headers, search: params}))
       .toPromise()
       .then(res => this.handleSuccess(res.json()))
       .catch(error => this.handleError(error));

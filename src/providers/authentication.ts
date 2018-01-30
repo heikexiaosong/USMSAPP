@@ -12,7 +12,6 @@ export class AuthenticationProvider {
   }
 
   public login(username, password) {
-    debugger;
     return this.http.post(AppConfig.appUrl() + `/login`, {userid:username, password:password, servername:"1"})
   }
 

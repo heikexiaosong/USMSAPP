@@ -21,6 +21,9 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     private authProvider: AuthenticationProvider) {
     this.url = AppConfig.url;
+
+    this.userName = 'ZHANGS';
+    this.userPwd = '123456';
   }
 
   ionViewDidLoad() {
@@ -32,7 +35,6 @@ export class LoginPage {
     //this._nav.setRoot(HomePage);
     // Validation
     AppConfig.url = this.url;
-    debugger;
     if ( this.url.trim()=='' ) {
       let toast = this.toastCtrl.create({
         message: '服务器地址不能为空',

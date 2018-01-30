@@ -16,8 +16,6 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 })
 export class ReceiptDetailInputPage {
 
-  @ViewChild('focusInput') focusInput ;
-
   public num = 0;
   public name = "";
   public batch = "";
@@ -34,11 +32,6 @@ export class ReceiptDetailInputPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');
-
-
-    setTimeout(() => {
-      this.focusInput.setFocus();
-    },150); //a least 150ms.
   }
 
   r_ok() {
