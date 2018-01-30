@@ -20,10 +20,10 @@ import { LoginPage } from '../pages/login/login';
 import { BatchSelectPage } from '../pages/batch-select/batch-select';
 import { provideInterceptorService  } from 'ng2-interceptors';
 import { HttpInterceptor } from '../interceptor/HttpInterceptor';
-import {BatchSelectPageModule} from "../pages/batch-select/batch-select.module";
 import {ExpressSelectPage} from "../pages/express-select/express-select";
 import {ExpressorderPage} from "../pages/expressorder/expressorder";
 import {NativeAudio} from "@ionic-native/native-audio";
+import {BatchInputPage} from "../pages/batch-input/batch-input";
 
 @NgModule({
   declarations: [
@@ -33,7 +33,8 @@ import {NativeAudio} from "@ionic-native/native-audio";
     LoginPage,
     BatchSelectPage,
     ExpressSelectPage,
-    ExpressorderPage
+    ExpressorderPage,
+    BatchInputPage
   ],
   imports: [
     BrowserModule,
@@ -53,6 +54,7 @@ import {NativeAudio} from "@ionic-native/native-audio";
     AutologinPage,
     LoginPage,
     BatchSelectPage,
+    BatchInputPage,
     ExpressSelectPage,
     ExpressorderPage
   ],
