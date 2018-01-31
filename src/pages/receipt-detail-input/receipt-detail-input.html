@@ -16,18 +16,26 @@
 <ion-content padding>
 
   <ion-item>
-    <ion-label color="primary" fixed>物料</ion-label>
-    <ion-input readonly=true  [(ngModel)] = "name" ></ion-input>
+    <ion-label>{{ name }}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary" fixed>批次</ion-label>
-    <ion-input readonly=true  [(ngModel)] = "batch" ></ion-input>
+    <ion-label>{{ batch }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" fixed>物料实出数量</ion-label>
     <ion-input type="number" [(ngModel)] = "num" focusInput></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>生产日期</ion-label>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary" fixed>有效期</ion-label>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE"></ion-datetime>
   </ion-item>
 
 </ion-content>

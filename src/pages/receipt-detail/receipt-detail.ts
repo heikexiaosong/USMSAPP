@@ -122,6 +122,8 @@ export class ReceiptDetailPage {
           var item = this.data[i];
           console.log("item: " + JSON.stringify(item));
           item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FLOTID"] || "";
+          item["FPRODUCEDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
+          item["FEXPIRYDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
         }
       }
     });
@@ -208,6 +210,11 @@ export class ReceiptDetailPage {
         console.log("Result: " + JSON.stringify(data));
         if(data){
           item["QUANTITY"] = data["num"];
+          item["WCODE"] = data["wcode"];
+          item["WNAME"] = data["wname"];
+          item["FPRODUCEDATE"] = data["FPRODUCEDATE"];
+          item["FEXPIRYDATE"] = data["FEXPIRYDATE"];
+          //FPRODUCEDATE: this.FPRODUCEDATE, FEXPIRYDATE: this.FEXPIRYDATE
         }
       });
       modal.present();

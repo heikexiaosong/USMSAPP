@@ -33,6 +33,14 @@
           <label>批次: {{ item?.MGOODSBATCH}}  </label> |
           <label>数量: {{item?.QUANTITY}}</label>
         </div>
+        <div class="list-main-content">
+          <label>[生产日期/保质期]</label>
+          <label>{{ item?.FPRODUCEDATE | date:"yyyy-MM-dd" }} / {{ item?.FEXPIRYDATE | date:"yyyy-MM-dd" }}   </label>
+        </div>
+        <div class="list-main-content">
+          <label>备注: </label>
+          <label>{{ item?.FNOTE }}   </label>
+        </div>
       </button>
     </ion-list>
   </ion-item-group>
