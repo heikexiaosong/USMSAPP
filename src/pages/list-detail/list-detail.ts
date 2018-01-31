@@ -117,6 +117,8 @@ export class ListDetailPage {
             var item = this.data[i];
             console.log("item: " + JSON.stringify(item));
             item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["VERID"] || "";
+            item["WCODE"] = item["RCODE"] || item["WCODE"] || "";
+            item["WNAME"] = item["RNAME"] || item["WNAME"] || "";
           }
       }
     });
@@ -194,8 +196,8 @@ export class ListDetailPage {
         console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
         if(data){
           item["QUANTITY"] = data["num"];
-          item["WCODE"] = data["wcode"];
-          item["WNAME"] = data["wname"];
+          item["WCODE"] = data["wcode"] || item["WCODE"];
+          item["WNAME"] = data["wname"] || item["WNAME"];
         }
       });
       modal.present();
