@@ -19,20 +19,29 @@ export class BatchInputPage {
 
   public batch = "";
 
+  private item = {};
+
   private resolve:any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams) {
 
+    console.log(navParams);
     this.resolve = navParams.get('resolve');
+
+    this.item = navParams.get("item");
+    this.name = this.item["FNAME"];
+
+    this.batch = this.item["MGOODSBATCH"] || this.item["VERNUMBER"];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BatchInputPage');
   }
 
-  r_ok(batch) {
-    this.resolve(batch); // 可在 resolve 中添加返回的数据，如 this.resolve(data);
+  r_ok() {
+    this.item["MGOODSBATCH"] = this.batch;
+    this.resolve(this.item); // 可在 resolve 中添加返回的数据，如 this.resolve(data);
     this.navCtrl.pop();
   }
 }

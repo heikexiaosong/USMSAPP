@@ -25,13 +25,17 @@
         <div class="list-main-content">
           <label>[应收]</label>
           <label>物料: {{ item?.FMATERIALID}}  </label> |
-          <label>批次: {{ item?.VERID}}  </label> |
+          <label>批次: {{ item?.VERNUMBER}}  </label> |
           <label>数量: {{item?.FACTRECEIVEQTY}} </label>
         </div>
         <div class="list-main-content">
           <label>[实收]</label>
           <label>批次: {{ item?.MGOODSBATCH }}  </label> |
           <label>数量: {{item?.QUANTITY}}</label>
+        </div>
+        <div class="list-main-content">
+          <label>[入库]</label>
+          <label>仓库: {{ item?.WNAME }}  </label>
         </div>
       </button>
     </ion-list>

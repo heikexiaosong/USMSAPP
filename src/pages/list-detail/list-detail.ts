@@ -194,15 +194,18 @@ export class ListDetailPage {
         console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
         if(data){
           item["QUANTITY"] = data["num"];
+          item["WCODE"] = data["wcode"];
+          item["WNAME"] = data["wname"];
         }
       });
       modal.present();
     } else {
       new Promise((resolve, reject) => {
-        this.navCtrl.push(BatchInputPage, { resolve: resolve, goodcode: item["FMATERIALID"] });
+        this.navCtrl.push(BatchInputPage, { resolve: resolve,  item: item});
       }).then((data) => {
-        item["MGOODSBATCH"] = data["fmasterid"];
-        console.log(JSON.stringify(data["fmasterid"]));
+        console.log(data);
+        item["MGOODSBATCH"] = data["MGOODSBATCH"];
+        console.log(JSON.stringify(data["MGOODSBATCH"]));
       });
     }
   }
