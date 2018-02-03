@@ -16,8 +16,11 @@ import {WcodeSelectPage} from "../wcode-select/wcode-select";
 })
 export class ListDetailInputPage {
 
+  public item = {};
+
   public num = 0;
   public name = "";
+  public code = "";
   public batch = "";
   public wcode = "";
   public wname = "";
@@ -27,11 +30,12 @@ export class ListDetailInputPage {
     console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams));
     console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams.get("FNAME")));
 
-    this.num = navParams.get("QUANTITY") || navParams.get("FACTRECEIVEQTY");
-    this.name = navParams.get("FNAME");
-    this.batch = navParams.get("MGOODSBATCH");
-    this.wname = navParams.get("WNAME");
+    this.item = navParams.get("item");
+    this.num = this.item["QUANTITY"];
+    this.batch = this.item["MGOODSBATCH"];
+    this.wname = this.item["WNAME"];
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');

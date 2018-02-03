@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>物料出库数量</ion-title>
+    <ion-title>物料入库</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,24 +15,39 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-label>{{ name }}</ion-label>
-  </ion-item>
+  <ion-card>
+    <ion-list>
+      <button ion-item>
+        <ion-label>物料名: {{ item?.FNAME }}</ion-label>
+      </button>
 
-  <ion-item>
-    <ion-label>{{ batch }}</ion-label>
-  </ion-item>
+      <button ion-item>
+        <ion-label>物料编码: {{ item?.FNUMBER }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>物料批次: {{ item?.VERNUMBER }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>采购数量({{ item?.UNIT }}): {{ item?.FACTRECEIVEQTY }}</ion-label>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <button ion-item  class="input-button" (click) ="wcodeselect()">
+    <span style="color: #488aff;">仓库:</span> {{ wname }}
+  </button>
 
   <ion-item  >
-    <ion-label color="primary" fixed>仓库</ion-label>
-    <ion-input readonly=true type="text" [(ngModel)] = "wname" (click) ="wcodeselect()"></ion-input>
+    <ion-label color="primary" fixed>实际入库批次</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "batch"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary" fixed>数量</ion-label>
+    <ion-label color="primary" fixed>实收数量({{ item?.UNIT }})</ion-label>
     <ion-input type="number" [(ngModel)] = "num" ></ion-input>
   </ion-item>
-
 
 </ion-content>
 

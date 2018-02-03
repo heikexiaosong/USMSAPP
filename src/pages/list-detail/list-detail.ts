@@ -191,7 +191,7 @@ export class ListDetailPage {
 
 
     if ( item["MGOODSBATCH"] ){
-      let modal = this.modalCtrl.create(ListDetailInputPage, item);
+      let modal = this.modalCtrl.create(ListDetailInputPage, {item: item});
       modal.onDidDismiss(data => {
         console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
         if(data){
