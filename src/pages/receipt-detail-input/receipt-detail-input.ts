@@ -17,6 +17,8 @@ import {WcodeSelectPage} from "../wcode-select/wcode-select";
 })
 export class ReceiptDetailInputPage {
 
+  private item = {};
+
   public num = 0;
   public name = "";
   public batch = "";
@@ -29,15 +31,17 @@ export class ReceiptDetailInputPage {
               public viewCtrl: ViewController,
               public navParams: NavParams) {
     console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams));
-    console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams.get("FNAME")));
+    console.log("ReceiptDetailInputPage: " + JSON.stringify(navParams.get("item")));
 
-    this.num =  navParams.get("QUANTITY")|| navParams.get("FQTY");
-    this.name = navParams.get("FNAME");
-    this.batch = navParams.get("MGOODSBATCH");
-    this.wname = navParams.get("WNAME");
+    this.item = navParams.get("item");
 
-    this.FPRODUCEDATE = navParams.get("FPRODUCEDATE");
-    this.FEXPIRYDATE = navParams.get("FEXPIRYDATE");
+    this.num =  this.item["QUANTITY"];
+    this.name = this.item["FNAME"];
+    this.batch = this.item["MGOODSBATCH"];
+    this.wname = this.item["WNAME"];
+
+    this.FPRODUCEDATE = this.item["FPRODUCEDATE"];
+    this.FEXPIRYDATE = this.item["FEXPIRYDATE"];
   }
 
   ionViewDidLoad() {

@@ -203,29 +203,30 @@ export class ReceiptDetailPage {
   }
 
   dblList(item){
+    let modal = this.modalCtrl.create(ReceiptDetailInputPage, {item: item});
+    modal.onDidDismiss(data => {
+      console.log("Result: " + JSON.stringify(data));
+      if(data){
+        item["QUANTITY"] = data["num"];
+        item["WCODE"] = data["wcode"];
+        item["WNAME"] = data["wname"];
+        item["FPRODUCEDATE"] = data["FPRODUCEDATE"];
+        item["FEXPIRYDATE"] = data["FEXPIRYDATE"];
+        //FPRODUCEDATE: this.FPRODUCEDATE, FEXPIRYDATE: this.FEXPIRYDATE
+      }
+    });
+    modal.present();
 
-    if ( item["MGOODSBATCH"] ){
-      let modal = this.modalCtrl.create(ReceiptDetailInputPage, item);
-      modal.onDidDismiss(data => {
-        console.log("Result: " + JSON.stringify(data));
-        if(data){
-          item["QUANTITY"] = data["num"];
-          item["WCODE"] = data["wcode"];
-          item["WNAME"] = data["wname"];
-          item["FPRODUCEDATE"] = data["FPRODUCEDATE"];
-          item["FEXPIRYDATE"] = data["FEXPIRYDATE"];
-          //FPRODUCEDATE: this.FPRODUCEDATE, FEXPIRYDATE: this.FEXPIRYDATE
-        }
-      });
-      modal.present();
-    } else {
-      new Promise((resolve, reject) => {
-        this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: item["FMATERIALID"] });
-      }).then((data) => {
-        item["MGOODSBATCH"] = data["fmasterid"];
-        console.log(JSON.stringify(data["fmasterid"]));
-      });
-    }
+    // if ( item["MGOODSBATCH"] ){
+    //
+    // } else {
+    //   new Promise((resolve, reject) => {
+    //     this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: item["FMATERIALID"] });
+    //   }).then((data) => {
+    //     item["MGOODSBATCH"] = data["fmasterid"];
+    //     console.log(JSON.stringify(data["fmasterid"]));
+    //   });
+    // }
 
   }
 

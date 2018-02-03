@@ -15,27 +15,49 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-label>{{ name }}</ion-label>
+
+  <ion-card>
+    <ion-list>
+      <button ion-item>
+        <ion-label>物料名: {{ item?.FNAME }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>物料编码: {{ item?.MFNUMBER }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>物料批次: {{ item?.FNUMBER }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>应发数量({{ item?.UNIT }}): {{ item?.FQTY }}</ion-label>
+      </button>
+    </ion-list>
+  </ion-card>
+
+  <button ion-item  class="input-button" (click) ="wcodeselect()">
+    <span style="color: #488aff;">仓库:</span> {{ wname }}
+  </button>
+
+  <ion-item  >
+    <ion-label color="primary" fixed>实际出库批次</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "batch"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>{{ batch }}</ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary" fixed>物料实出数量</ion-label>
-    <ion-input type="number" [(ngModel)] = "num" focusInput></ion-input>
+    <ion-label color="primary" fixed>实发数量({{ item?.UNIT }})</ion-label>
+    <ion-input type="number" [(ngModel)] = "num" ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" fixed>生产日期</ion-label>
-    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE"></ion-datetime>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" fixed>有效期</ion-label>
-    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE"></ion-datetime>
+    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 
 </ion-content>
