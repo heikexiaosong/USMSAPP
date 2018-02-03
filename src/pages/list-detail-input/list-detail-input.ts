@@ -16,8 +16,6 @@ import {WcodeSelectPage} from "../wcode-select/wcode-select";
 })
 export class ListDetailInputPage {
 
-  @ViewChild('focusInput') focusInput ;
-
   public num = 0;
   public name = "";
   public batch = "";
@@ -37,11 +35,6 @@ export class ListDetailInputPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');
-
-
-    setTimeout(() => {
-      this.focusInput.setFocus();
-    },150); //a least 150ms.
   }
 
   wcodeselect() {

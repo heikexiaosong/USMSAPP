@@ -24,12 +24,11 @@
   </ion-refresher>
 
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)" class="item-text-wrap">
       <h2 class="list-main-title">{{ item?.FBILLNO}} </h2>
       <h4 class="list-main-title">{{ item?.SUPNAME}} </h4>
       <div class="list-main-content">
         <label>{{item?.SALEDEPNAME}} </label> |
-        <label>{{item?.SALENAME}}</label> |
         <label>{{item?.FDATE  | date:"yyyy-MM-dd" }}</label>
       </div>
     </button>

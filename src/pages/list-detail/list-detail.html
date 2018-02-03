@@ -9,11 +9,12 @@
 <ion-content >
   <ion-item-group class="list-detail-info">
     <ion-item ><label>供应商</label> <span style="margin-left: 4.2rem">{{listDetial.SUPNAME}}</span></ion-item>
-    <ion-item ><label >收货时间</label><span style="margin-left: 3rem">{{listDetial.FDATE| date:"yyyy-MM-dd" }}</span></ion-item>
-    <ion-item ><label >收货部门</label><span style="margin-left: 3rem">{{listDetial.SALEORGNAME}}</span></ion-item>
-    <ion-item ><label >收货人</label><span style="margin-left: 4.2rem">{{listDetial.SALENAME}}</span></ion-item>
+    <ion-item ><label >采购部门</label><span style="margin-left: 3rem">{{listDetial.SALEORGNAME}}</span></ion-item>
+    <ion-item ><label >收料时间</label><span style="margin-left: 3rem">{{listDetial.FDATE| date:"yyyy-MM-dd" }}</span></ion-item>
     <ion-item (click) ="express(listDetial)"><label >物流公司</label><span style="margin-left: 4.2rem">{{listDetial.EXPRESS}}</span></ion-item>
     <ion-item (click) ="expressOrder(listDetial)" ><label >运单号</label><span style="margin-left: 4.2rem">{{listDetial.EXPRESSOID}}</span></ion-item>
+    <ion-item ><label >是否GSP订单</label><span style="margin-left: 3rem">{{listDetial.FISGSPORDER}}</span></ion-item>
+    <ion-item ><label >备注</label><span style="margin-left: 3rem">{{listDetial.FNOTE}}</span></ion-item>
   </ion-item-group>
 
   <ion-item-group>
@@ -24,7 +25,6 @@
         <label class="list-main-title">{{ item?.FNAME}} </label>
         <div class="list-main-content">
           <label>[应收]</label>
-          <label>物料: {{ item?.FMATERIALID}}  </label> |
           <label>批次: {{ item?.VERNUMBER}}  </label> |
           <label>数量: {{item?.FACTRECEIVEQTY}} </label>
         </div>

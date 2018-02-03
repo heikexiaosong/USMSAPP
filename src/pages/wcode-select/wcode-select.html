@@ -17,7 +17,7 @@
   <ion-searchbar (ionInput)="searchCustomer($event)" [(ngModel)]="keyword"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let batch of showBatchs" (click)="customerSelected(batch)">
-      {{batch.FNAME}}
+      {{batch.FNAME}} (  {{batch.ORGNAME}})
     </ion-item>
   </ion-list>
 

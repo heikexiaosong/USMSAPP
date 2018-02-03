@@ -116,7 +116,7 @@ export class ListDetailPage {
           for(var i= 0; i<this.data.length; i++){
             var item = this.data[i];
             console.log("item: " + JSON.stringify(item));
-            item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["VERID"] || "";
+            item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["VERNUMBER"] || "";
             item["WCODE"] = item["RCODE"] || item["WCODE"] || "";
             item["WNAME"] = item["RNAME"] || item["WNAME"] || "";
           }

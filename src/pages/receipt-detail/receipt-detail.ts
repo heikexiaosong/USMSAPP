@@ -121,7 +121,7 @@ export class ReceiptDetailPage {
         for(var i= 0; i<this.data.length; i++){
           var item = this.data[i];
           console.log("item: " + JSON.stringify(item));
-          item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FLOTID"] || "";
+          item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
           item["FPRODUCEDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
           item["FEXPIRYDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
         }

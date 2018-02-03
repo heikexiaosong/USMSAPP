@@ -23,14 +23,14 @@
     <ion-label>{{ batch }}</ion-label>
   </ion-item>
 
-  <ion-item (click) ="wcodeselect()" >
+  <ion-item  >
     <ion-label color="primary" fixed>仓库</ion-label>
-    <ion-input readonly=true type="text" [(ngModel)] = "wname" #focusInput></ion-input>
+    <ion-input readonly=true type="text" [(ngModel)] = "wname" (click) ="wcodeselect()"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary" fixed>数量</ion-label>
-    <ion-input type="number" [(ngModel)] = "num" #focusInput></ion-input>
+    <ion-input type="number" [(ngModel)] = "num" ></ion-input>
   </ion-item>
 
 
