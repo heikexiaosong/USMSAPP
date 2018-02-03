@@ -27,6 +27,8 @@ export class ExpressSelectPage {
 
   private resolve:any;
 
+  private normals = [100009, 100008, 100010, 100007, 100012, 100003, 100022, 100011, 100068, 100015, 100033, 100034, 100028, 100031];
+
   constructor(public navCtrl: NavController,
               public service:HttpServiceProvider,
               public loadingCtrl: LoadingController,
@@ -49,7 +51,15 @@ export class ExpressSelectPage {
         var result = data.json().data.records || [] ;
         console.log("Batch: " + JSON.stringify(result));
         this.batchs = result;
-        this.showBatchs = this.batchs;
+        this.showBatchs = [];
+        for ( var i = 0; i < this.batchs.length; i++ ) {
+          for(var j = 0; j < this.normals.length; j++){
+            if( this.batchs[i]["FID"] === this.normals[j]){
+              this.showBatchs.push(this.batchs[ i ]);
+              break;
+            }
+          }
+        }
       },
       err => console.error(err),
       () => {
@@ -63,11 +73,22 @@ export class ExpressSelectPage {
 
   searchCustomer(event){
     this.showBatchs = [];
-    for ( var i = 0; i < this.batchs.length; i++ ) {
-      console.log(JSON.stringify(this.batchs[i]));
-      var fmasterid = this.batchs[i]["FNAME"]||"";
-      if( fmasterid.indexOf(this.keyword) > -1){
-        this.showBatchs.push(this.batchs[ i ])
+    if ( this.keyword==null || this.keyword.trim() === '' ) {
+      for ( var i = 0; i < this.batchs.length; i++ ) {
+        for(var j = 0; j < this.normals.length; j++){
+          if( this.batchs[i]["FID"] === this.normals[j]){
+            this.showBatchs.push(this.batchs[ i ]);
+            break;
+          }
+        }
+      }
+    } else {
+      for ( var i = 0; i < this.batchs.length; i++ ) {
+        console.log(JSON.stringify(this.batchs[i]));
+        var fmasterid = this.batchs[i]["FNAME"]||"";
+        if( fmasterid.indexOf(this.keyword) > -1){
+          this.showBatchs.push(this.batchs[ i ])
+        }
       }
     }
   }
