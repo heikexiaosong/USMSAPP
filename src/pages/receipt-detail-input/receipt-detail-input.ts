@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {WcodeSelectPage} from "../wcode-select/wcode-select";
+import {BatchSelectPage} from "../batch-select/batch-select";
 
 
 /**
@@ -58,6 +59,15 @@ export class ReceiptDetailInputPage {
       //item["MGOODSBATCH"] = data["MGOODSBATCH"];
       //console.log(JSON.stringify(data["MGOODSBATCH"]));
     });
+  }
+
+  batchselect() {
+      new Promise((resolve, reject) => {
+        this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: this.item["FMATERIALID"] });
+      }).then((data) => {
+        this.item["MGOODSBATCH"] = data["fmasterid"];
+        console.log(JSON.stringify(data["fmasterid"]));
+      });
   }
 
   r_ok() {

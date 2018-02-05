@@ -40,10 +40,9 @@
     <span style="color: #488aff;">仓库:</span> {{ wname }}
   </button>
 
-  <ion-item  >
-    <ion-label color="primary" fixed>实际出库批次</ion-label>
-    <ion-input rtype="text" [(ngModel)] = "batch"></ion-input>
-  </ion-item>
+  <button ion-item  class="input-button" (click) ="batchselect()">
+    <span style="color: #488aff;">实际出库批次:</span> {{ batch }}
+  </button>
 
   <ion-item>
     <ion-label color="primary" fixed>实发数量({{ item?.UNIT }})</ion-label>

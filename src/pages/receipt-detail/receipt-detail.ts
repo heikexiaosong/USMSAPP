@@ -58,6 +58,26 @@ export class ReceiptDetailPage {
     console.log(JSON.stringify(this.listDetial));
   }
 
+  /**************************************时间格式化处理************************************/
+  dateFtt(fmt, _date) { //author: meizz
+    const date = new Date(_date);
+    var o = {
+      "M+" : date.getMonth()+1,                 //月份
+      "d+" : date.getDate(),                    //日
+      "h+" : date.getHours(),                   //小时
+      "m+" : date.getMinutes(),                 //分
+      "s+" : date.getSeconds(),                 //秒
+      "q+" : Math.floor((date.getMonth()+3)/3), //季度
+      "S"  : date.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt))
+      fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+      if(new RegExp("("+ k +")").test(fmt))
+        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
+  }
+
   scanPackage(parentCode) {
     console.log("Scan: " + parentCode);
     if ( parentCode.length == 0) {
@@ -122,17 +142,34 @@ export class ReceiptDetailPage {
           var item = this.data[i];
           console.log("item: " + JSON.stringify(item));
           item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
-          item["FPRODUCEDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
-          item["FEXPIRYDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
+          let sdate =  item["FPRODUCEDATE"] || item["SDATE"] || 0;
+          let edate =  item["FEXPIRYDATE"] || item["EDATE"] || 0;
+          if ( sdate > 0 ){
+            item["FPRODUCEDATE"] = this.dateFtt("yyyy-MM-dd", sdate);
+          }
+          if ( edate > 0 ){
+            item["FEXPIRYDATE"] = this.dateFtt("yyyy-MM-dd", edate);
+          }
         }
       }
     });
   }
   logForm(){
+    let detail = [];
+    for(var i= 0; i<this.data.length; i++){
+      debugger;
+      var item = Object.assign({}, this.data[i]);
+      item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
+      item["FPRODUCEDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
+      item["FEXPIRYDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
+      console.log("item: " + JSON.stringify(item));
+      detail.push(item);
+    }
+
     var details = [{
       id: 'T_SAL_DELIVERYNOTICEENTRY',
       extend: 't_Sal_Deliverynoticeentry',
-      records: this.data
+      records: detail
     }];
 
     this.listDetial["ZT"] = '提交';
@@ -210,23 +247,15 @@ export class ReceiptDetailPage {
         item["QUANTITY"] = data["num"];
         item["WCODE"] = data["wcode"];
         item["WNAME"] = data["wname"];
-        item["FPRODUCEDATE"] = data["FPRODUCEDATE"];
-        item["FEXPIRYDATE"] = data["FEXPIRYDATE"];
-        //FPRODUCEDATE: this.FPRODUCEDATE, FEXPIRYDATE: this.FEXPIRYDATE
+        if ( data["FPRODUCEDATE"] !=null &&  data["FPRODUCEDATE"] > 0  ){
+          item["FPRODUCEDATE"] = this.dateFtt("yyyy-MM-dd",  data["FPRODUCEDATE"]);
+        }
+        if (  data["FEXPIRYDATE"] !=null && data["FEXPIRYDATE"] > 0 ){
+          item["FEXPIRYDATE"] = this.dateFtt("yyyy-MM-dd", data["FEXPIRYDATE"]);
+        }
       }
     });
     modal.present();
-
-    // if ( item["MGOODSBATCH"] ){
-    //
-    // } else {
-    //   new Promise((resolve, reject) => {
-    //     this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: item["FMATERIALID"] });
-    //   }).then((data) => {
-    //     item["MGOODSBATCH"] = data["fmasterid"];
-    //     console.log(JSON.stringify(data["fmasterid"]));
-    //   });
-    // }
 
   }
 
