@@ -37,16 +37,16 @@
   </ion-card>
 
   <button ion-item  (click) ="wcodeselect()">
-    <span style="color: #488aff;">仓库:</span> {{ wname }}
+    <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
   </button>
 
   <button ion-item   class="input-button" (click) ="batchselect()">
-    <span style="color: #488aff;">实际出库批次:</span> {{ batch }}
+    <span style="color: #488aff;">实际出库批次:</span> {{ item?.MGOODSBATCH }}
   </button>
 
   <ion-item>
     <ion-label color="primary"   class="input-button" fixed>实发数量({{ item?.UNIT }})</ion-label>
-    <ion-input type="number" [(ngModel)] = "num" ></ion-input>
+    <ion-input type="number" [(ngModel)] = "item.QUANTITY" ></ion-input>
   </ion-item>
 
   <ion-item>

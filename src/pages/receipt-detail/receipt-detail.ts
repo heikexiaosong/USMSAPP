@@ -1,11 +1,10 @@
-import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
 import { LoadingController, AlertController } from 'ionic-angular';
 import {ReceiptDetailInputPage} from '../receipt-detail-input/receipt-detail-input';
 import {AppConfig} from "../../app/app.config";
-import {BatchSelectPage} from "../batch-select/batch-select";
 import {ExpressSelectPage} from "../express-select/express-select";
 import {ExpressorderPage} from "../expressorder/expressorder";
 import {RemarkshowPage} from "../remarkshow/remarkshow";
@@ -33,17 +32,6 @@ export class ReceiptDetailPage {
 
   private packages = [];
 
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(JSON.stringify(event.key) + event.code);
-    console.log("Code:" + this.parentCode + " <== " + event.keyCode);
-    if ( event.keyCode == KEY_CODE.ENTER_KEY ){
-      this.scanPackage(this.parentCode);
-      this.parentCode = "";
-    } else {
-      this.parentCode = this.parentCode + event.key;
-    }
-  }
 
   public  listDetial= {};
   public master = {};
@@ -54,7 +42,6 @@ export class ReceiptDetailPage {
               public alertController: AlertController,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
-              public detectorRef: ChangeDetectorRef,
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
@@ -78,55 +65,6 @@ export class ReceiptDetailPage {
       if(new RegExp("("+ k +")").test(fmt))
         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
     return fmt;
-  }
-
-  scanPackage(parentCode) {
-    console.log("Scan: " + parentCode);
-    if ( parentCode.length == 0) {
-      return;
-    }
-
-    if( parentCode.toLowerCase().indexOf("wx") != 0){
-      return;
-    }
-
-    const url = AppConfig.getProUrl() + "ws/packagings/" + parentCode;
-    this.service.getObservable(url).subscribe(
-      data => {
-        var packaging = data.json()||{};
-        console.log("箱码扫描: " + JSON.stringify(packaging));
-
-        var goodsbatch = packaging["goodsbatch"];
-        if ( goodsbatch==null ){
-          let toast = this.toastCtrl.create({
-            message: '此箱码为空箱',
-            duration: 3000
-          });
-          toast.present();
-        } else {
-          var quantity = packaging["quantity"]||0;
-          for(var i= 0;i<this.data.length;i++){
-            var item = this.data[i];
-            console.log("item: " + JSON.stringify(item));
-            if ( goodsbatch === item["FLOTID"] ){
-              var quantityStr = item["QUANTITY"]||"0";
-              console.log("quantityStr: " + quantityStr);
-              var bquantity = parseInt(quantityStr);
-              item["QUANTITY"] = bquantity + quantity;
-              this.packages.push(parentCode);
-              console.log(JSON.stringify(this.packages))
-            }
-            this.data[i] = item;
-          }
-        }
-        this.detectorRef.detectChanges();
-      },
-      err => console.error(err),
-      () => {
-        console.log('getRepos completed');
-      }
-    );
-    this.parentCode = "";
   }
 
   ionViewDidLoad() {
@@ -202,7 +140,12 @@ export class ReceiptDetailPage {
           });
           toast.present();
         } else {
-          this.service.postObservable(AppConfig.getProUrl() + "ws/qrcodes/binding/" + this.listDetial["FBILLNO"], {datas: this.packages}).subscribe(
+          let packages = [];
+          for(var i= 0; i<this.data.length; i++){
+            packages = packages.concat(this.data[i]["packages"]||[]);
+          }
+
+          this.service.postObservable(AppConfig.getProUrl() + "ws/qrcodes/binding/" + this.listDetial["FBILLNO"], {datas: packages}).subscribe(
             data => {
               console.log("Binding Result: " + JSON.stringify(data.json()));
               let alert =this.alertController.create({ title:'信息提示', subTitle:'提交成功!', buttons: [{text:'确定',handler: data => {
@@ -252,9 +195,10 @@ export class ReceiptDetailPage {
     modal.onDidDismiss(data => {
       console.log("Result: " + JSON.stringify(data));
       if(data){
-        item["QUANTITY"] = data["num"];
-        item["WCODE"] = data["wcode"];
-        item["WNAME"] = data["wname"];
+        item["packages"] = data["packages"];
+        item["QUANTITY"] = data["QUANTITY"];
+        item["WCODE"] = data["WCODE"];
+        item["WNAME"] = data["WNAME"];
         if ( data["FPRODUCEDATE"] !=null &&  data["FPRODUCEDATE"] > 0  ){
           item["FPRODUCEDATE"] = this.dateFtt("yyyy-MM-dd",  data["FPRODUCEDATE"]);
         }

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
@@ -6,7 +6,6 @@ import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import {AppConfig} from "../../app/app.config";
 import { ToastController } from 'ionic-angular';
-import {BatchInputPage} from "../batch-input/batch-input";
 import {ExpressSelectPage} from "../express-select/express-select";
 import {ExpressorderPage} from "../expressorder/expressorder";
 import {RemarkshowPage} from "../remarkshow/remarkshow";
@@ -18,30 +17,12 @@ import {RemarkshowPage} from "../remarkshow/remarkshow";
  * Ionic pages and navigation.
  */
 
-export enum KEY_CODE {
-  ENTER_KEY = 13
-}
-
 @IonicPage()
 @Component({
   selector: 'page-list-detail',
   templateUrl: 'list-detail.html',
 })
 export class ListDetailPage {
-
-  private parentCode: string = "";
-
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(JSON.stringify(event.key) + event.code);
-    console.log("Code:" + this.parentCode + " <== " + event.keyCode);
-    if ( event.keyCode == KEY_CODE.ENTER_KEY ){
-      this.scanPackage(this.parentCode);
-      this.parentCode = "";
-    } else {
-      this.parentCode = this.parentCode + event.key;
-    }
-  }
 
   public  listDetial= [];
   public master = {};
@@ -52,56 +33,9 @@ export class ListDetailPage {
               public navParams: NavParams,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
-              public detectorRef: ChangeDetectorRef,
               public loadingCtrl: LoadingController) {
     this.listDetial = this.navParams.data.item ;
     console.log(JSON.stringify(this.listDetial));
-  }
-
-  scanPackage(parentCode) {
-    console.log("Scan: " + parentCode);
-    if ( parentCode.length == 0) {
-      return;
-    }
-
-    if( parentCode.toLowerCase().indexOf("wx") != 0){
-      return;
-    }
-
-    const url = AppConfig.getProUrl() + "ws/packagings/" + parentCode;
-    this.service.getObservable(url).subscribe(
-      data => {
-        var packaging = data.json()||{};
-        console.log("箱码扫描: " + JSON.stringify(packaging));
-
-        var goodsbatchcode = packaging["goodsbatchcode"];
-        if ( goodsbatchcode==null || goodsbatchcode==='' ){
-          let toast = this.toastCtrl.create({
-            message: '此箱码为空箱',
-            duration: 3000
-          });
-          toast.present();
-        } else {
-          var quantity = packaging["quantity"]||0;
-          for(var i= 0;i<this.data.length;i++){
-            var item = this.data[i];
-            if ( goodsbatchcode === item["FNUMBER"] ){
-              var quantityStr = item["QUANTITY"]||"0";
-              console.log("quantityStr: " + quantityStr);
-              var bquantity = parseInt(quantityStr);
-              item["QUANTITY"] = bquantity + quantity;
-            }
-            this.data[i] = item;
-          }
-        }
-        this.detectorRef.detectChanges();
-      },
-      err => console.error(err),
-      () => {
-        console.log('getRepos completed');
-      }
-    );
-    this.parentCode = "";
   }
 
   ionViewDidLoad() {
@@ -114,7 +48,6 @@ export class ListDetailPage {
     });
     loader.present();
     const url='system/funcdef/details/T_PUR_Receive/' + this.listDetial["FBILLNO"];
-    //const url ='CGSL10101000032.json';
     this.service.list(url,{}).then(data=>{
       loader.dismiss();
       if(data['data']){
@@ -196,28 +129,17 @@ export class ListDetailPage {
   }
 
   dblList(item){
-
-
-    if ( item["MGOODSBATCH"] ){
-      let modal = this.modalCtrl.create(ListDetailInputPage, {item: item});
-      modal.onDidDismiss(data => {
-        console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
-        if(data){
-          item["QUANTITY"] = data["num"];
-          item["WCODE"] = data["wcode"] || item["WCODE"];
-          item["WNAME"] = data["wname"] || item["WNAME"];
-        }
-      });
-      modal.present();
-    } else {
-      new Promise((resolve, reject) => {
-        this.navCtrl.push(BatchInputPage, { resolve: resolve,  item: item});
-      }).then((data) => {
-        console.log(data);
-        item["MGOODSBATCH"] = data["MGOODSBATCH"];
-        console.log(JSON.stringify(data["MGOODSBATCH"]));
-      });
-    }
+    let modal = this.modalCtrl.create(ListDetailInputPage, {item: item});
+    modal.onDidDismiss(data => {
+      console.log("Result: " + JSON.stringify(data) + JSON.stringify(item));
+      if(data){
+        item["packages"] = data["packages"];
+        item["QUANTITY"] = data["QUANTITY"];
+        item["WCODE"] = data["WCODE"] || item["WCODE"];
+        item["WNAME"] = data["WNAME"] || item["WNAME"];
+      }
+    });
+    modal.present();
   }
 
   fnoteShow (){
@@ -225,8 +147,6 @@ export class ListDetailPage {
       this.navCtrl.push(RemarkshowPage, { resolve: resolve, content: this.listDetial["FNOTE"]});
     }).then((data) => {
       console.log(data);
-      //item["MGOODSBATCH"] = data["MGOODSBATCH"];
-      //console.log(JSON.stringify(data["MGOODSBATCH"]));
     });
   }
 }
