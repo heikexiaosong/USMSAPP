@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import {ListDetailInputPage} from '../list-detail-input/list-detail-input';
 import { ModalController } from 'ionic-angular';
@@ -9,6 +9,7 @@ import { ToastController } from 'ionic-angular';
 import {BatchInputPage} from "../batch-input/batch-input";
 import {ExpressSelectPage} from "../express-select/express-select";
 import {ExpressorderPage} from "../expressorder/expressorder";
+import {RemarkshowPage} from "../remarkshow/remarkshow";
 
 /**
  * Generated class for the ListDetailPage page.
@@ -46,6 +47,7 @@ export class ListDetailPage {
   public master = {};
   public  data=[];
   constructor(public navCtrl: NavController,
+              public alertController: AlertController,
               public toastCtrl: ToastController,
               public navParams: NavParams,
               public service:HttpServiceProvider,
@@ -59,6 +61,11 @@ export class ListDetailPage {
   scanPackage(parentCode) {
     console.log("Scan: " + parentCode);
     if ( parentCode.length == 0) {
+      return;
+    }
+
+    var wxStart = parentCode.trim().indexOf("wx");
+    if(wxStart != 0){
       return;
     }
 
@@ -153,8 +160,10 @@ export class ListDetailPage {
           });
           toast.present();
         } else {
-          alert("提交成功!");
-          this.navCtrl.pop();
+          let alert =this.alertController.create({ title:'信息提示', subTitle:'提交成功!', buttons: [{text:'确定',handler: data => {
+            this.navCtrl.pop();
+          }}]});
+          alert.present();
         }
       },
       err => console.error(err),
@@ -210,5 +219,15 @@ export class ListDetailPage {
         console.log(JSON.stringify(data["MGOODSBATCH"]));
       });
     }
+  }
+
+  fnoteShow (){
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(RemarkshowPage, { resolve: resolve, content: this.listDetial["FNOTE"]});
+    }).then((data) => {
+      console.log(data);
+      //item["MGOODSBATCH"] = data["MGOODSBATCH"];
+      //console.log(JSON.stringify(data["MGOODSBATCH"]));
+    });
   }
 }

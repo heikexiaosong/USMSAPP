@@ -25,6 +25,7 @@ import {ExpressorderPage} from "../pages/expressorder/expressorder";
 import {NativeAudio} from "@ionic-native/native-audio";
 import {BatchInputPage} from "../pages/batch-input/batch-input";
 import {WcodeSelectPage} from "../pages/wcode-select/wcode-select";
+import {RemarkshowPage} from "../pages/remarkshow/remarkshow";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {WcodeSelectPage} from "../pages/wcode-select/wcode-select";
     ExpressSelectPage,
     ExpressorderPage,
     BatchInputPage,
-    WcodeSelectPage
+    WcodeSelectPage,
+    RemarkshowPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import {WcodeSelectPage} from "../pages/wcode-select/wcode-select";
     BatchInputPage,
     ExpressSelectPage,
     ExpressorderPage,
-    WcodeSelectPage
+    WcodeSelectPage,
+    RemarkshowPage
   ],
   providers: [
     StatusBar,

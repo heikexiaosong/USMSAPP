@@ -2,12 +2,13 @@ import {ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpServiceProvider} from '../../providers/http-service/http-service';
 import { ModalController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, AlertController } from 'ionic-angular';
 import {ReceiptDetailInputPage} from '../receipt-detail-input/receipt-detail-input';
 import {AppConfig} from "../../app/app.config";
 import {BatchSelectPage} from "../batch-select/batch-select";
 import {ExpressSelectPage} from "../express-select/express-select";
 import {ExpressorderPage} from "../expressorder/expressorder";
+import {RemarkshowPage} from "../remarkshow/remarkshow";
 
 
 /**
@@ -50,6 +51,7 @@ export class ReceiptDetailPage {
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public navParams: NavParams,
+              public alertController: AlertController,
               public service:HttpServiceProvider,
               public modalCtrl: ModalController,
               public detectorRef: ChangeDetectorRef,
@@ -81,6 +83,11 @@ export class ReceiptDetailPage {
   scanPackage(parentCode) {
     console.log("Scan: " + parentCode);
     if ( parentCode.length == 0) {
+      return;
+    }
+
+    var wxStart = parentCode.trim().indexOf("wx");
+    if(wxStart != 0){
       return;
     }
 
@@ -199,8 +206,10 @@ export class ReceiptDetailPage {
           this.service.postObservable(AppConfig.getProUrl() + "ws/qrcodes/binding/" + this.listDetial["FBILLNO"], {datas: this.packages}).subscribe(
             data => {
               console.log("Binding Result: " + JSON.stringify(data.json()));
-              alert("提交成功!");
-              this.navCtrl.pop();
+              let alert =this.alertController.create({ title:'信息提示', subTitle:'提交成功!', buttons: [{text:'确定',handler: data => {
+                this.navCtrl.pop();
+              }}]});
+              alert.present();
             },
             err => console.error(err),
             () => {
@@ -257,6 +266,16 @@ export class ReceiptDetailPage {
     });
     modal.present();
 
+  }
+
+  fnoteShow (){
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(RemarkshowPage, { resolve: resolve, content: this.listDetial["FNOTE"]});
+    }).then((data) => {
+      console.log(data);
+      //item["MGOODSBATCH"] = data["MGOODSBATCH"];
+      //console.log(JSON.stringify(data["MGOODSBATCH"]));
+    });
   }
 
 }
