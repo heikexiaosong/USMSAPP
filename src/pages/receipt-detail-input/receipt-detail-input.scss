@@ -9,4 +9,7 @@ page-receipt-detail-input {
     color: white;
   }
 
+  ion-label[fixed] {
+    min-width: 140px !important;
+  }
 }

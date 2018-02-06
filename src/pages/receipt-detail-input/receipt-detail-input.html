@@ -36,26 +36,26 @@
     </ion-list>
   </ion-card>
 
-  <button ion-item  class="input-button" (click) ="wcodeselect()">
+  <button ion-item  (click) ="wcodeselect()">
     <span style="color: #488aff;">仓库:</span> {{ wname }}
   </button>
 
-  <button ion-item  class="input-button" (click) ="batchselect()">
+  <button ion-item   class="input-button" (click) ="batchselect()">
     <span style="color: #488aff;">实际出库批次:</span> {{ batch }}
   </button>
 
   <ion-item>
-    <ion-label color="primary" fixed>实发数量({{ item?.UNIT }})</ion-label>
+    <ion-label color="primary"   class="input-button" fixed>实发数量({{ item?.UNIT }})</ion-label>
     <ion-input type="number" [(ngModel)] = "num" ></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary" fixed>生产日期</ion-label>
+    <ion-label color="primary"  class="input-button" fixed>生产日期</ion-label>
     <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 
   <ion-item>
-    <ion-label color="primary" fixed>有效期</ion-label>
+    <ion-label color="primary"  fixed>有效期</ion-label>
     <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 

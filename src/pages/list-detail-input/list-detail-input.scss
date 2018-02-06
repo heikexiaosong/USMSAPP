@@ -29,6 +29,9 @@ page-list-detail-input {
 
 
   .input-button {
+  }
 
+  ion-label[fixed] {
+    min-width: 140px !important;
   }
 }
