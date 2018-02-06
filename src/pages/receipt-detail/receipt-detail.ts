@@ -86,8 +86,7 @@ export class ReceiptDetailPage {
       return;
     }
 
-    var wxStart = parentCode.trim().indexOf("wx");
-    if(wxStart != 0){
+    if( parentCode.toLowerCase().indexOf("wx") != 0){
       return;
     }
 
