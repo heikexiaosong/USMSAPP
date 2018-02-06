@@ -46,7 +46,7 @@ export class HomePage {
     if(e == 1){
       //收料通知单
       this.navCtrl.push(ListPage, { item: e });
-    }else{
+    }else if(e == 2) {
       //发货通知单
       this.navCtrl.push(ReceiptPage, { item: e });
     }

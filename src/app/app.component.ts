@@ -26,7 +26,7 @@ export class MyApp {
         .then(function (msg) {
           console.log(msg);
         }, function (error) {
-          alert(error);
+          console.log(error);
         });
 
     });
