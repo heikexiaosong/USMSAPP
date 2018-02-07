@@ -19,6 +19,7 @@ export class HomePage {
               public service: HttpServiceProvider,
               public nativeAudio: NativeAudio,
               public navParams: NavParams) {
+    setTimeout(this.loopr.bind(this), 1000);
     setInterval(this.loopr.bind(this), 1000*60*5);
   }
 

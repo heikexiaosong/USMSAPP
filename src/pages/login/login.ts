@@ -22,8 +22,8 @@ export class LoginPage {
     private authProvider: AuthenticationProvider) {
     this.url = AppConfig.url;
 
-    this.userName = 'ZHANGS';
-    this.userPwd = '123456';
+    //this.userName = 'ZHANGS';
+    //this.userPwd = '123456';
   }
 
   ionViewDidLoad() {
