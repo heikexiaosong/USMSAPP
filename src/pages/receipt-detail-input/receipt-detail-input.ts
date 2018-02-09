@@ -131,6 +131,7 @@ export class ReceiptDetailInputPage {
       console.log(data);
       this.item["WCODE"] = data["FNUMBER"];
       this.item["WNAME"] = data["FNAME"];
+      this.item["WID"] = data["FSTOCKID"];
     });
   }
 
