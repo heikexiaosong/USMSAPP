@@ -110,6 +110,7 @@ export class ListDetailPage {
     new Promise((resolve, reject) => {
       this.navCtrl.push(ExpressSelectPage, { resolve: resolve, master: master});
     }).then((data) => {
+      debugger;
       this.listDetial["EXPRESSCODE"] = data["FCODE"];
       this.listDetial["EXPRESS"] = data["FNAME"];
       console.log(JSON.stringify(data["fmasterid"]));
