@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {ListPage} from "../list/list";
 import {ReceiptPage} from "../receipt/receipt";
 import {LoginPageModule} from "../login/login.module";
@@ -16,11 +16,31 @@ import {NativeAudio} from "@ionic-native/native-audio";
 export class HomePage {
 
   constructor(public navCtrl: NavController,
+              public alertController: AlertController,
               public service: HttpServiceProvider,
               public nativeAudio: NativeAudio,
               public navParams: NavParams) {
     setTimeout(this.loopr.bind(this), 1000);
     setInterval(this.loopr.bind(this), 1000*60*5);
+    setInterval(this.validate.bind(this), 1000*30);
+  }
+
+  validate(){
+    this.service.postObservable(AppConfig.url +"/validate",{token: localStorage.getItem("auth_token")}).subscribe(
+      data => {
+        var validate = data.json().success || false;
+        if ( !validate ){
+          let alert =this.alertController.create({ title:'信息提示', subTitle: data.json().message || "此账户在另一设备登陆！", buttons: [{text:'确定',handler: data => {
+            this.navCtrl.setRoot(LoginPage)
+          }}]});
+          alert.present();
+        }
+      },
+      err => console.error(err),
+      () => {
+        console.log('validate completed');
+      }
+    );
   }
 
   loopr(){
