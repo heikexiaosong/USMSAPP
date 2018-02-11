@@ -4,6 +4,7 @@ import {WcodeSelectPage} from "../wcode-select/wcode-select";
 import {BatchSelectPage} from "../batch-select/batch-select";
 import {AppConfig} from "../../app/app.config";
 import {HttpServiceProvider} from "../../providers/http-service/http-service";
+import {OrgselectPage} from "../orgselect/orgselect";
 
 
 /**
@@ -122,6 +123,16 @@ export class ReceiptDetailInputPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptDetailInputPage');
+  }
+
+  orgselect() {
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(OrgselectPage, { resolve: resolve});
+    }).then((data) => {
+      console.log(data);
+      this.item["ORGNUMBER"] = data["MASTERCODE"];
+      this.item["ORGNAME"] = data["MASTER"];
+    });
   }
 
   wcodeselect() {

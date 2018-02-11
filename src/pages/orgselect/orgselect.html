@@ -1,0 +1,23 @@
+<!--
+  Generated template for the OrgselectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>选择货主</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar (ionInput)="searchOrg($event)" [(ngModel)]="keyword"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let batch of showBatchs" (click)="orgSelected(batch)">
+      {{batch.MASTERCODE}} | {{batch.MASTER}}
+    </ion-item>
+  </ion-list>
+

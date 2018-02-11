@@ -37,11 +37,35 @@
       <button ion-item>
         <ion-label>即时库存数量:({{ item?.UNIT }}): {{ item?.FBASEQTY }}</ion-label>
       </button>
+
+      <button ion-item>
+        <ion-label>版号: {{ item?.VERSION }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>产地: {{ item?.ORIGIN }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>生产厂家: {{ item?.MANUFACTURERNAME }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>质量等级: {{ item?.GRADE }}</ion-label>
+      </button>
     </ion-list>
   </ion-card>
 
   <button ion-item  (click) ="wcodeselect()">
     <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
+  </button>
+
+  <button ion-item  (click) ="wcodeselect()">
+    <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
+  </button>
+
+  <button ion-item  (click) ="orgselect()">
+    <span style="color: #488aff;">货主:</span> {{ item?.ORGNAME }}
   </button>
 
   <button ion-item   class="input-button" (click) ="batchselect()">

@@ -26,6 +26,7 @@ import {NativeAudio} from "@ionic-native/native-audio";
 import {BatchInputPage} from "../pages/batch-input/batch-input";
 import {WcodeSelectPage} from "../pages/wcode-select/wcode-select";
 import {RemarkshowPage} from "../pages/remarkshow/remarkshow";
+import {OrgselectPage} from "../pages/orgselect/orgselect";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {RemarkshowPage} from "../pages/remarkshow/remarkshow";
     ExpressorderPage,
     BatchInputPage,
     WcodeSelectPage,
+    OrgselectPage,
     RemarkshowPage
   ],
   imports: [
@@ -62,6 +64,7 @@ import {RemarkshowPage} from "../pages/remarkshow/remarkshow";
     ExpressSelectPage,
     ExpressorderPage,
     WcodeSelectPage,
+    OrgselectPage,
     RemarkshowPage
   ],
   providers: [
