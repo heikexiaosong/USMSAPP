@@ -1,6 +1,6 @@
 page-home {
 .btn-style{
-  width:40%;
+  width:43%;
   height: 10rem;
   margin: 1rem;
   -webkit-box-shadow: 3px 3px 8px rgba(0, 0, 0, .25);
@@ -8,10 +8,12 @@ page-home {
   box-shadow:3px 3px 8px rgba(0, 0, 0, .25);
   border-radius: 6px;
 }
+
   .btn-style-position{
     position: absolute;
     right: 2rem;
   }
+
   .btn-style-postition-left{
     position: absolute;
     left: 3rem;
@@ -34,6 +36,7 @@ page-home {
     margin-top: -20px;
   }
   .ion-icon-text{
-    margin-top: 20px;
+    margin-top: 42px;
+    white-space: pre-wrap;
   }
 }
