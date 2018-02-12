@@ -101,11 +101,10 @@ export class ReceiptDetailPage {
   logForm(){
     let detail = [];
     for(var i= 0; i<this.data.length; i++){
-      debugger;
       var item = Object.assign({}, this.data[i]);
       item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
-      item["FPRODUCEDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
-      item["FEXPIRYDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
+      item["SDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
+      item["EDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
       console.log("item: " + JSON.stringify(item));
       detail.push(item);
     }

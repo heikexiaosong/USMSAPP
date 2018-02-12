@@ -15,6 +15,8 @@ import {NativeAudio} from "@ionic-native/native-audio";
 })
 export class HomePage {
 
+  public  isValidate = true;
+
   constructor(public navCtrl: NavController,
               public alertController: AlertController,
               public service: HttpServiceProvider,
@@ -23,24 +25,28 @@ export class HomePage {
     setTimeout(this.loopr.bind(this), 1000);
     setInterval(this.loopr.bind(this), 1000*60*5);
     setInterval(this.validate.bind(this), 1000*30);
+    this.isValidate = true;
   }
 
   validate(){
-    this.service.postObservable(AppConfig.url +"/validate",{token: localStorage.getItem("auth_token")}).subscribe(
-      data => {
-        var validate = data.json().success || false;
-        if ( !validate ){
-          let alert =this.alertController.create({ title:'信息提示', subTitle: data.json().message || "此账户在另一设备登陆！", buttons: [{text:'确定',handler: data => {
-            this.navCtrl.setRoot(LoginPage)
-          }}]});
-          alert.present();
+    if ( this.isValidate == true ) {
+      this.service.postObservable(AppConfig.url +"/validate",{token: localStorage.getItem("auth_token")}).subscribe(
+        data => {
+          var validate = data.json().success || false;
+          if ( !validate ){
+            this.isValidate == false;
+            let alert =this.alertController.create({ title:'信息提示', subTitle: data.json().message || "此账户在另一设备登陆！", buttons: [{text:'确定',handler: data => {
+              this.navCtrl.setRoot(LoginPage)
+            }}]});
+            alert.present();
+          }
+        },
+        err => console.error(err),
+        () => {
+          console.log('validate completed');
         }
-      },
-      err => console.error(err),
-      () => {
-        console.log('validate completed');
-      }
-    );
+      );
+    }
   }
 
   loopr(){
