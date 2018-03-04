@@ -56,16 +56,17 @@
     </ion-list>
   </ion-card>
 
-  <button ion-item  (click) ="wcodeselect()">
-    <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
+
+  <button ion-item   class="input-button" (click) ="batchselect()">
+    <span style="color: #488aff;">实际出库批次:</span> {{ item?.MGOODSBATCH }}
   </button>
 
   <button ion-item  (click) ="orgselect()">
     <span style="color: #488aff;">货主:</span> {{ item?.ORGNAME }}
   </button>
 
-  <button ion-item   class="input-button" (click) ="batchselect()">
-    <span style="color: #488aff;">实际出库批次:</span> {{ item?.MGOODSBATCH }}
+  <button ion-item  (click) ="wcodeselect()">
+    <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
   </button>
 
   <ion-item>

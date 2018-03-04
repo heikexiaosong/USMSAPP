@@ -22,6 +22,7 @@ export class BatchSelectPage {
   public batchs  = [];
 
   public goodcode  = "";
+  public item  = {};
 
   public showBatchs  = [];
 
@@ -35,6 +36,7 @@ export class BatchSelectPage {
     console.log(JSON.stringify(this.resolve));
     this.batchs = [];
     this.goodcode = navParams.get("goodcode")||"-1";
+    this.item = navParams.get("item")||{};
   }
 
   ionViewDidLoad() {
@@ -46,11 +48,11 @@ export class BatchSelectPage {
       content: "加载中..."
     });
     loader.present();
-    this.service.getObservable(AppConfig.getProUrl() + "ws/goods/batch?filters[goods]=" + this.goodcode).subscribe(
+    this.service.postObservable(AppConfig.getProUrl() + "system/funcdef/stk_inventory/query", {"field":"WCODE","type":"String","op":"like","value": this.item["MFNUMBER"]}).subscribe(
       data => {
         var result = data.json() || [] ;
         console.log("Batch: " + JSON.stringify(result));
-        this.batchs = result;
+        this.batchs = result.data.records;
         this.showBatchs = this.batchs;
       },
       err => console.error(err),
@@ -67,7 +69,7 @@ export class BatchSelectPage {
     this.showBatchs = [];
     for ( var i = 0; i < this.batchs.length; i++ ) {
       console.log(JSON.stringify(this.batchs[i]));
-      var fmasterid = this.batchs[i]["fmasterid"]||0;
+      var fmasterid = this.batchs[i]["PH"]||0;
       if( fmasterid.toString().indexOf(this.keyword) > -1){
         this.showBatchs.push(this.batchs[ i ])
       }

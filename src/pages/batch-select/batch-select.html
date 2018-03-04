@@ -17,7 +17,7 @@
   <ion-searchbar (ionInput)="searchCustomer($event)" [(ngModel)]="keyword"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let batch of showBatchs" (click)="customerSelected(batch)">
-      {{batch.fmasterid}}
+      {{batch.PH}}--库存:{{batch.QTY}} {{batch.DCODE}}({{batch.OWNER}})
     </ion-item>
   </ion-list>
 

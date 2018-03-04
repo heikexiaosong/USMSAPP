@@ -148,11 +148,31 @@ export class ReceiptDetailInputPage {
 
   batchselect() {
       new Promise((resolve, reject) => {
-        this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: this.item["FMATERIALID"] });
+        this.navCtrl.push(BatchSelectPage, { resolve: resolve, goodcode: this.item["FMATERIALID"], item: this.item });
       }).then((data) => {
-        this.item["MGOODSBATCH"] = data["fmasterid"] ;
-        console.log(JSON.stringify(data["fmasterid"]));
+        console.log(JSON.stringify(data));
+        this.item["MGOODSBATCH"] = data["PH"] ;
+
+        this.item["ORGNUMBER"] = data["OWNERCODE"];
+        this.item["ORGNAME"] = data["OWNER"];
+
+        this.FPRODUCEDATE = this.item["SDATE"] || this.FPRODUCEDATE;
+        this.FEXPIRYDATE = this.item["EDATE"] || this.FEXPIRYDATE;
+
+        this.item["FBASEQTY"] = data["QTY"] || this.item["FBASEQTY"];
+
+        this.item["VERSION"] = data["BCODE"] || this.item["VERSION"];
+        this.item["ORIGIN"] = data["CDCODE"] || this.item["ORIGIN"];
+        this.item["MANUFACTURER"] = data["SCCJCODE"] || this.item["MANUFACTURER"];
+        this.item["MANUFACTURERNAME"] = data["SCCJ"] || this.item["MANUFACTURERNAME"];
+        this.item["GRADE"] = data["ZLDJCODE"] || this.item["GRADE"];
       });
+
+    /**
+     * {"WCODE":"CP0001000004671","FNUMBER":"10106","CCODE":"CK026","DCODE":"Kg",
+     * "PH":"YC20150804","CDCODE":"吉林","SCCJCODE":"00113","ZLDJCODE":"01","CD":"吉林","SCCJ":"云南白药中药饮片分公司",
+     * "ZLDJ":"-","SDATE":1448208000000,"EDATE":2312121600000,"QTY":0,"OWNERCODE":"10102","OWNER":"药材资源运营中心"}
+     */
   }
 
   r_ok() {

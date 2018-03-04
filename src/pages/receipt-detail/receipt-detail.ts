@@ -199,11 +199,23 @@ export class ReceiptDetailPage {
         item["WCODE"] = data["WCODE"];
         item["WNAME"] = data["WNAME"];
         if ( data["FPRODUCEDATE"] !=null &&  data["FPRODUCEDATE"] > 0  ){
-          item["FPRODUCEDATE"] = this.dateFtt("yyyy-MM-dd",  data["FPRODUCEDATE"]);
+          item["SDATE"] = this.dateFtt("yyyy-MM-dd",  data["FPRODUCEDATE"]);
         }
         if (  data["FEXPIRYDATE"] !=null && data["FEXPIRYDATE"] > 0 ){
-          item["FEXPIRYDATE"] = this.dateFtt("yyyy-MM-dd", data["FEXPIRYDATE"]);
+          item["EDATE"] = this.dateFtt("yyyy-MM-dd", data["FEXPIRYDATE"]);
         }
+
+        item["ORGNUMBER"] = data["ORGNUMBER"];
+        item["ORGNAME"] = data["ORGNAME"];
+
+        item["FBASEQTY"] = data["FBASEQTY"] || item["FBASEQTY"];
+
+        item["VERSION"] = data["VERSION"] || item["VERSION"];
+        item["ORIGIN"] = data["ORIGIN"] || item["ORIGIN"];
+        item["MANUFACTURER"] = data["MANUFACTURER"] || item["MANUFACTURER"];
+        item["MANUFACTURERNAME"] = data["MANUFACTURERNAME"] || item["MANUFACTURERNAME"];
+        item["GRADE"] = data["GRADE"] || item["GRADE"];
+
       }
     });
     modal.present();
@@ -217,6 +229,7 @@ export class ReceiptDetailPage {
       console.log(data);
       //item["MGOODSBATCH"] = data["MGOODSBATCH"];
       //console.log(JSON.stringify(data["MGOODSBATCH"]));
+
     });
   }
 
