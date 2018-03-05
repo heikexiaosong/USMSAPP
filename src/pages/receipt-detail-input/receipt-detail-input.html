@@ -76,12 +76,12 @@
 
   <ion-item>
     <ion-label color="primary"  class="input-button" fixed>生产日期</ion-label>
-    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE" cancelText="取消" doneText="确认"></ion-datetime>
+    <ion-datetime min="2010" max="2050-12-31" displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label color="primary"  fixed>有效期</ion-label>
-    <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE" cancelText="取消" doneText="确认"></ion-datetime>
+    <ion-datetime min="2010" max="2050-12-31" displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE" cancelText="取消" doneText="确认"></ion-datetime>
   </ion-item>
 
 </ion-content>
