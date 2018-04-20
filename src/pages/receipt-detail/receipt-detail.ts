@@ -86,14 +86,8 @@ export class ReceiptDetailPage {
           var item = this.data[i];
           console.log("item: " + JSON.stringify(item));
           item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
-          let sdate =  item["FPRODUCEDATE"] || item["SDATE"] || 0;
-          let edate =  item["FEXPIRYDATE"] || item["EDATE"] || 0;
-          if ( sdate > 0 ){
-            item["FPRODUCEDATE"] = this.dateFtt("yyyy-MM-dd", sdate);
-          }
-          if ( edate > 0 ){
-            item["FEXPIRYDATE"] = this.dateFtt("yyyy-MM-dd", edate);
-          }
+          let sdate =  item["SDATE"] || 0;
+          let edate =  item["EDATE"] || 0;
         }
       }
     });
@@ -103,8 +97,8 @@ export class ReceiptDetailPage {
     for(var i= 0; i<this.data.length; i++){
       var item = Object.assign({}, this.data[i]);
       item["MGOODSBATCH"] = item["MGOODSBATCH"] || item["FNUMBER"] || "";
-      item["SDATE"] = item["SDATE"] || item["FPRODUCEDATE"] || 0;
-      item["EDATE"] = item["EDATE"] || item["FEXPIRYDATE"] || 0;
+      item["SDATE"] = item["SDATE"] || 0;
+      item["EDATE"] = item["EDATE"] || 0;
       console.log("item: " + JSON.stringify(item));
       detail.push(item);
     }
@@ -198,12 +192,6 @@ export class ReceiptDetailPage {
         item["QUANTITY"] = data["QUANTITY"];
         item["WCODE"] = data["WCODE"];
         item["WNAME"] = data["WNAME"];
-        if ( data["FPRODUCEDATE"] !=null &&  data["FPRODUCEDATE"] > 0  ){
-          item["SDATE"] = this.dateFtt("yyyy-MM-dd",  data["FPRODUCEDATE"]);
-        }
-        if (  data["FEXPIRYDATE"] !=null && data["FEXPIRYDATE"] > 0 ){
-          item["EDATE"] = this.dateFtt("yyyy-MM-dd", data["FEXPIRYDATE"]);
-        }
 
         item["ORGNUMBER"] = data["ORGNUMBER"];
         item["ORGNAME"] = data["ORGNAME"];

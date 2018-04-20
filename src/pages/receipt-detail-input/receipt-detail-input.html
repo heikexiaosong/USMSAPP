@@ -17,7 +17,10 @@
 
 
   <ion-card>
-    <ion-list>
+    <ion-card-header>
+      物料信息
+    </ion-card-header>
+    <ion-card-content>
       <button ion-item>
         <ion-label>物料名: {{ item?.FNAME }}</ion-label>
       </button>
@@ -34,8 +37,32 @@
         <ion-label>应发数量({{ item?.UNIT }}): {{ item?.FQTY }}</ion-label>
       </button>
 
+      <!--
+            /**
+     * Batch: {"WCODE":"CP0001000004671","FNUMBER":"10106","CCODE":"CK019","DCODE":"Kg","PH":"20151001","CDCODE":"湖北",
+     * "SCCJCODE":"01","ZLDJCODE":"01","CD":"湖北","SCCJ":"-","ZLDJ":"-","SDATE":1450281600000,"EDATE":2314195200000,
+     * "QTY":61872,"OWNERCODE":"10102","OWNER":"药材资源运营中心"}
+     receipt-detail-input.ts:170
+
+     Item: {"FBILLNO":"FHTZD10102000049","FMATERIALID":320010,"MFNUMBER":"CP0001000004671","FNAME":"披麻草","FQTY":1157.5,
+     "FID":113533,"FENTRYID":115100,"FSEQ":1,"FNOTE":" ","FLOTID":420151,"FNUMBER":"YC20150804","MGOODSBATCH":"20151001",
+     "QUANTITY":"900","WID":"CK001","WCODE":341025,"WNAME":"农副产品库","UNIT":"千克","FPRODUCEDATE":"2017-10-01",
+     "FEXPIRYDATE":"2020-09-30","FTAXPRICE":31.11,"FALLAMOUNT":36009.82,"SDATE":1514736000000,"EDATE":1546185600000,"
+     ORGNUMBER":"10102","ORGNAME":"药材资源运营中心","FBASEQTY":61872,"ORIGIN":"湖北","MANUFACTURER":"01","
+     MANUFACTURERNAME":"-","GRADE":"01"}
+     */
+      -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-label class="select"  color="primary" (click) ="batchselect()">选择批次信息</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+
       <button ion-item>
-        <ion-label>即时库存数量:({{ item?.UNIT }}): {{ item?.FBASEQTY }}</ion-label>
+        <ion-label>实际出库批次: {{ item?.MGOODSBATCH }}</ion-label>
       </button>
 
       <button ion-item>
@@ -47,44 +74,44 @@
       </button>
 
       <button ion-item>
-        <ion-label>生产厂家: {{ item?.MANUFACTURERNAME }}</ion-label>
+        <ion-label>质量等级: {{ item?.GRADE }}</ion-label>
       </button>
 
       <button ion-item>
-        <ion-label>质量等级: {{ item?.GRADE }}</ion-label>
+        <ion-label>生产厂家: {{ item?.MANUFACTURERNAME }}</ion-label>
       </button>
-    </ion-list>
+
+      <button ion-item >
+        <ion-label>货主: {{ item?.ORGNAME }}</ion-label>
+      </button>
+
+      <button ion-item>
+        <ion-label>仓库: {{ item?.WNAME }}</ion-label>
+      </button>
+
+      <ion-item>
+        <ion-label>生产日期: {{ item?.SDATE | date:"yyyy-MM-dd" }}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>有效期: {{ item?.EDATE | date:"yyyy-MM-dd" }}</ion-label>
+      </ion-item>
+
+      <button ion-item>
+        <ion-label>即时库存数量:({{ item?.UNIT }}): {{ item?.FBASEQTY }}</ion-label>
+      </button>
+
+    </ion-card-content>
   </ion-card>
 
 
-  <button ion-item   class="input-button" (click) ="batchselect()">
-    <span style="color: #488aff;">实际出库批次:</span> {{ item?.MGOODSBATCH }}
-  </button>
-
-  <button ion-item  (click) ="orgselect()">
-    <span style="color: #488aff;">货主:</span> {{ item?.ORGNAME }}
-  </button>
-
-  <button ion-item  (click) ="wcodeselect()">
-    <span style="color: #488aff;">仓库:</span> {{ item?.WNAME }}
-  </button>
-
   <ion-item>
     <ion-label color="primary"   class="input-button" fixed>实发数量({{ item?.UNIT }})</ion-label>
-    <ion-input type="number" [(ngModel)] = "item.QUANTITY" ></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary"  class="input-button" fixed>生产日期</ion-label>
-    <ion-datetime min="2010" max="2050-12-31" displayFormat="MM/DD/YYYY" [(ngModel)]="FPRODUCEDATE" cancelText="取消" doneText="确认"></ion-datetime>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary"  fixed>有效期</ion-label>
-    <ion-datetime min="2010" max="2050-12-31" displayFormat="MM/DD/YYYY" [(ngModel)]="FEXPIRYDATE" cancelText="取消" doneText="确认"></ion-datetime>
+    <ion-input type="number" max="{{max}}" [(ngModel)] = "item.QUANTITY" ></ion-input>
   </ion-item>
 
 </ion-content>
+
 
 
 <ion-footer>

@@ -12,4 +12,16 @@ page-receipt-detail-input {
   ion-label[fixed] {
     min-width: 140px !important;
   }
+  .select {
+    text-decoration:underline;
+    cursor: pointer;
+  }
+
+  .card-header-md + .card-content-md, .card-md .item + .card-content-md {
+    padding-right: 0px;
+  }
+
+  .card-md .item-md.item-block .item-inner {
+    padding-right: 0px;
+  }
 }

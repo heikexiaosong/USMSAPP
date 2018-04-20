@@ -30,15 +30,16 @@ export class HomePage {
 
   validate(){
     if ( this.isValidate == true ) {
+      console.log("isValidate: " + this.isValidate);
       this.service.postObservable(AppConfig.url +"/validate",{token: localStorage.getItem("auth_token")}).subscribe(
         data => {
           var validate = data.json().success || false;
+          console.log("validate: " + validate);
           if ( !validate ){
-            this.isValidate == false;
-            let alert =this.alertController.create({ title:'信息提示', subTitle: data.json().message || "此账户在另一设备登陆！", buttons: [{text:'确定',handler: data => {
+            this.isValidate = false;
+            this.alertController.create({ title:'信息提示', subTitle: data.json().message || "此账户在另一设备登陆！", buttons: [{text:'确定',handler: data => {
               this.navCtrl.setRoot(LoginPage)
-            }}]});
-            alert.present();
+            }}]}).present();
           }
         },
         err => console.error(err),
