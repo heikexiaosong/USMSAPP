@@ -5,6 +5,7 @@ import {BatchSelectPage} from "../batch-select/batch-select";
 import {AppConfig} from "../../app/app.config";
 import {HttpServiceProvider} from "../../providers/http-service/http-service";
 import {OrgselectPage} from "../orgselect/orgselect";
+import {PackagecodesPage} from "../packagecodes/packagecodes";
 
 
 /**
@@ -101,13 +102,17 @@ export class ReceiptDetailInputPage {
         } else {
           var quantity = packaging["quantity"]||0;
           console.log("item: " + JSON.stringify(this.item));
-          if ( goodsbatch === this.item["FLOTID"] ){
+          //this.item["FLOTID"] == null ||
+          if (  goodsbatch === this.item["FLOTID"] ){
             var quantityStr = this.item["QUANTITY"]||"0";
             console.log("quantityStr: " + quantityStr);
             var bquantity = parseInt(quantityStr);
             this.item["QUANTITY"] = bquantity + quantity;
             this.packages.push(parentCode);
             console.log(JSON.stringify(this.packages))
+          } else {
+            console.log("goodsbatch: " + goodsbatch);
+            console.log("FLOTID: " + this.item["FLOTID"]);
           }
         }
         this.detectorRef.detectChanges();
@@ -171,6 +176,16 @@ export class ReceiptDetailInputPage {
       this.item["WCODE"] = data["FNUMBER"];
       this.item["WNAME"] = data["FNAME"];
       this.item["WID"] = data["FSTOCKID"];
+    });
+  }
+
+
+  packageCode() {
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(PackagecodesPage, { resolve: resolve, packages: this.packages});
+    }).then((data) => {
+      console.log(data);
+
     });
   }
 

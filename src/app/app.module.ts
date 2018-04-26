@@ -27,6 +27,7 @@ import {BatchInputPage} from "../pages/batch-input/batch-input";
 import {WcodeSelectPage} from "../pages/wcode-select/wcode-select";
 import {RemarkshowPage} from "../pages/remarkshow/remarkshow";
 import {OrgselectPage} from "../pages/orgselect/orgselect";
+import {PackagecodesPage} from "../pages/packagecodes/packagecodes";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {OrgselectPage} from "../pages/orgselect/orgselect";
     BatchInputPage,
     WcodeSelectPage,
     OrgselectPage,
-    RemarkshowPage
+    RemarkshowPage,
+    PackagecodesPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ import {OrgselectPage} from "../pages/orgselect/orgselect";
     ExpressorderPage,
     WcodeSelectPage,
     OrgselectPage,
-    RemarkshowPage
+    RemarkshowPage,
+    PackagecodesPage
   ],
   providers: [
     StatusBar,

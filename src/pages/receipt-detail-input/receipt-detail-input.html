@@ -110,6 +110,10 @@
     <ion-input type="number" max="{{max}}" [(ngModel)] = "item.QUANTITY" ></ion-input>
   </ion-item>
 
+  <button ion-item  class="input-button" (click) ="packageCode()">
+    <span style="color: #488aff;">已扫箱码({{packages.length}})</span>
+  </button>
+
 </ion-content>
 
 
