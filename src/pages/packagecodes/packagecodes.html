@@ -16,19 +16,20 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label>序号</ion-label>
+      <ion-label fixed-5>序号</ion-label>
       <ion-label>箱码</ion-label>
     </ion-item>
     <ion-item-sliding *ngFor="let package of packages; let i = index">
       <ion-item ion-item >
-        <ion-label>{{ i}}</ion-label>
+        <ion-label fixed-5>{{i}}</ion-label>
         <ion-label>{{ package}}</ion-label>
       </ion-item>
-      <ion-item-options side="right" (ionSwipe)="deleteItem(package)">
+      <ion-item-options side="right">
+        <button (click)="deleteItem(package)"><ion-icon trash></ion-icon> 删除 </button>
       </ion-item-options>
     </ion-item-sliding>
     <ion-item>
-      <ion-label></ion-label>
+      <ion-label fixed-5></ion-label>
       <ion-label></ion-label>
     </ion-item>
   </ion-list>

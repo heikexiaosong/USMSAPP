@@ -70,6 +70,11 @@ export class ReceiptDetailInputPage {
 
 
     if( parentCode.toLowerCase().indexOf("wx") != 0){
+      let toast = this.toastCtrl.create({
+        message: '箱码应该以WX开头!',
+        duration: 3000
+      });
+      toast.present();
       return;
     }
 
@@ -85,43 +90,10 @@ export class ReceiptDetailInputPage {
       }
     }
 
+    this.packages.push(parentCode);
+    console.log(JSON.stringify(this.packages));
+    this.detectorRef.detectChanges();
 
-    const url = AppConfig.getProUrl() + "ws/packagings/" + parentCode;
-    this.service.getObservable(url).subscribe(
-      data => {
-        var packaging = data.json()||{};
-        console.log("箱码扫描: " + JSON.stringify(packaging));
-
-        var goodsbatch = packaging["goodsbatch"];
-        if ( goodsbatch==null ){
-          let toast = this.toastCtrl.create({
-            message: '此箱码为空箱',
-            duration: 3000
-          });
-          toast.present();
-        } else {
-          var quantity = packaging["quantity"]||0;
-          console.log("item: " + JSON.stringify(this.item));
-          //this.item["FLOTID"] == null ||
-          if (  goodsbatch === this.item["FLOTID"] ){
-            var quantityStr = this.item["QUANTITY"]||"0";
-            console.log("quantityStr: " + quantityStr);
-            var bquantity = parseInt(quantityStr);
-            this.item["QUANTITY"] = bquantity + quantity;
-            this.packages.push(parentCode);
-            console.log(JSON.stringify(this.packages))
-          } else {
-            console.log("goodsbatch: " + goodsbatch);
-            console.log("FLOTID: " + this.item["FLOTID"]);
-          }
-        }
-        this.detectorRef.detectChanges();
-      },
-      err => console.error(err),
-      () => {
-        console.log('getRepos completed');
-      }
-    );
     this.parentCode = "";
   }
 

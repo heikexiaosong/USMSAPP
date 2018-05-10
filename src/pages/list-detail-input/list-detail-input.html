@@ -44,6 +44,26 @@
     <ion-input rtype="text" [(ngModel)] = "item.MGOODSBATCH"></ion-input>
   </ion-item>
 
+  <ion-item  >
+    <ion-label color="primary" fixed>生产厂家</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "item.MANUFACTURER"></ion-input>
+  </ion-item>
+
+  <ion-item  >
+    <ion-label color="primary" fixed>产地</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "item.ORIGIN"></ion-input>
+  </ion-item>
+
+  <ion-item  >
+    <ion-label color="primary" fixed>版号</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "item.VERSION"></ion-input>
+  </ion-item>
+
+  <ion-item  >
+    <ion-label color="primary" fixed>质量等级</ion-label>
+    <ion-input rtype="text" [(ngModel)] = "item.GRADE"></ion-input>
+  </ion-item>
+
   <ion-item>
     <ion-label color="primary" fixed>实收数量({{ item?.UNIT }})</ion-label>
     <ion-input type="number" [(ngModel)] = "item.QUANTITY" ></ion-input>
